@@ -1,0 +1,19 @@
+.image-upload_avatar-container {
+    width: 17.3rem;
+    height: 3.2rem;
+    margin: -1rem 3.4rem 0 2rem;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar-img {
+    width: 16.5rem;
+    height: 16.5rem;
+    border-radius: 50%;
+    margin-left: 3rem;
+}
+
+input[type="file"] {
+    display: none;
+}

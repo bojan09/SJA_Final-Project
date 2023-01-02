@@ -1,0 +1,40 @@
+.guest-navbar_buttons {
+    display: flex;
+    gap: 1.6rem;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 5rem;
+}
+
+
+.guest-navbar_btn {
+    border: 1px solid var(--clr-midgrey);
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.6rem;
+    border-radius: .6rem;
+}
+
+.log-in_btn {
+    width: 11.7rem;
+    height: 4.5rem;
+    color: var(--clr-midgrey);
+    background: var(--clr-main-bg);
+    cursor: pointer;
+}
+
+.create-account_btn {
+    width: 17.8rem;
+    height: 4.4rem;
+    margin-right: 2rem;
+    color: var(--clr-white);
+    background: var(--clr-green);
+    box-shadow: 0px 3px 6px var(--clr-border-btn);
+    cursor: pointer;
+}
+
+.or {
+    font-weight: bold;
+    font-size: 1.6rem;
+    color: var(--clr-orange);
+}

@@ -1,0 +1,104 @@
+.create-account {
+    height: 70rem;
+}
+
+.create-account_heading {
+    margin: 2rem 0rem 8rem 0rem;
+    grid-row: 1;
+}
+
+.create-account_heading::after {
+    width: 78.5%;
+}
+
+.create-account_container {
+    display: flex;
+}
+
+/* FORM */
+
+.create-account_form label {
+    color: var(--clr-orange);
+    font-family: var(--ff-roboto-slab);
+    font-weight: bold;
+    margin-bottom: .5rem;
+}
+
+.create-account_form input {
+    padding: .5rem;
+    height: 4rem;
+    border: 1px solid var(--clr-border-btn);
+    border-radius: .5rem;
+    background-color: var(--clr-border-lightgrey);
+}
+
+.create-account_form input:focus {
+    outline: 1px solid var(--clr-midgrey);
+    box-shadow: 1px 1px 4px 1px var(--clr-lightgrey);
+
+}
+
+.create-account_form input::-webkit-input-placeholder {
+    font-family: var(--ff-roboto-slab);
+    padding-left: .4rem;
+}
+
+/* LEFT SIDE OF CONTAINER */
+.create-account_secondary-heading {
+    color: var(--clr-orange);
+    font-size: 4.6rem;
+    font-family: var(--ff-roboto-slab);
+    width: 10ch;
+}
+
+.create-account_secondary-heading span {
+    margin-top: 2rem;
+    color: var(--clr-darkgrey);
+}
+
+.create-account_description {
+    color: var(--clr-midgrey);
+    font-family: var(--ff-roboto-slab);
+    width: 35ch;
+    margin: 5rem 20rem 0 0;
+}
+
+
+/* RIGHT SIDE OF CONTAINER */
+.create-account_form {
+    display: grid;
+    grid-template-columns: 4;
+    grid-template-rows: 4;
+    gap: 1rem;
+}
+
+.create-account_form-container {
+    display: flex;
+    gap: 2rem;
+}
+
+.create-account_form input {
+    display: grid;
+    margin: 1rem 0 2rem;
+    width: 29.4rem;
+}
+
+.create-account_form-btn {
+    width: 20rem;
+    height: 4rem;
+    text-transform: uppercase;
+    font-weight: 900;
+    display: grid;
+    place-content: center;
+    margin-top: 3rem;
+    border-radius: .5rem;
+    color: var(--clr-white);
+    background: var(--clr-green);
+    box-shadow: 0px 3px 6px var(--clr-border-btn);
+    cursor: pointer;
+}
+
+.create-account_form .birthdate {
+    display: flex;
+    color: var(--clr-midgrey);
+}

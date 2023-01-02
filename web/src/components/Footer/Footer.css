@@ -1,0 +1,29 @@
+footer {
+    background-color: var(--clr-darkgrey);
+}
+
+.footer-items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6rem 36rem;
+}
+
+
+.footer-links li a {
+    color: #fff;
+}
+
+footer .dot {
+    background: #fff;
+}
+
+
+
+.copyright {
+    font-size: 1.4rem;
+    width: 12rem;
+    line-height: 1.5;
+    text-align: right;
+    color: #fff;
+}

@@ -1,0 +1,13 @@
+.home-container {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-fresh_recipes-heading::after {
+    width: 79.5%;
+}
+
+.home-popular_recipes-heading::after {
+    width: 67.8%;
+}

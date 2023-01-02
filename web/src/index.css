@@ -1,0 +1,153 @@
+/* Roboto & Roboto Slab */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@200;300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+/* colors */
+:root {
+  --clr-main-bg: #F8F7F2;
+  --clr-white: #FFFFFF;
+  --clr-green: #96BB36;
+  --clr-orange: #F0972A;
+  --clr-midgrey: #A5A5A5;
+  --clr-darkgrey: #626262;
+  --clr-lightgrey: #D8D8D8;
+  --clr-border-grey: #00000012;
+  --clr-border-lightgrey: #F0EFEA;
+  --clr-border-btn: #00000029;
+
+  /* fonts */
+  --ff-roboto: "Roboto";
+  --ff-roboto-slab: "Roboto Slab";
+
+  /* border */
+  --line-border: 2px solid var(--clr-lightgrey);
+}
+
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100vh;
+  width: 100vw;
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+  margin-inline: auto;
+  background: var(--clr-main-bg);
+  font-family: var(--ff-roboto);
+  font-size: 1.6rem;
+  text-rendering: optimizeSpeed;
+}
+
+
+
+/* Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Avoid text overflows */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'],
+li,
+a {
+  list-style: none;
+  text-decoration: none;
+}
+
+
+/* Universal styling for all the inputs and select fields*/
+input,
+select,
+textarea {
+  margin: 1rem;
+  height: 4rem;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--clr-darkgrey);
+  background-color: var(--clr-border-lightgrey);
+  border: 1px solid var(--clr-midgrey);
+  border-radius: .5rem;
+  padding: 1rem;
+}
+
+select,
+option,
+textarea::placeholder,
+input[type="text"]::placeholder,
+input[type="textarea"]::placeholder,
+input[type="email"]::placeholder,
+input[type="date"]::placeholder,
+input[type="password"]::placeholder,
+input[type="number"]::placeholder {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--clr-midgrey);
+}
+
+input[type="file"] {
+  background-color: red;
+  position: absolute;
+  top: 0;
+}
+
+
+
+input:focus,
+select:focus,
+textarea:focus {
+  border: 1px solid var(--clr-midgrey);
+  outline: 1px solid var(--clr-midgrey);
+  box-shadow: 0 3px 6px var(--clr-lightgrey);
+  font-size: 1.4rem;
+  color: var(--clr-darkgrey);
+}
+
+textarea {
+  resize: none;
+}
+
+textarea::placeholder {
+  font-weight: 400;
+  font-family: var(--ff-roboto);
+  line-height: 1.5;
+}
+
+
+/* Create a root stacking context */
+#root,
+#__next {
+  isolation: isolate;
+}

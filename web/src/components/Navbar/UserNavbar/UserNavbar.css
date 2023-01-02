@@ -1,0 +1,41 @@
+.user-navbar_btn-dot {
+    width: .9rem;
+    height: .9rem;
+    background: var(--clr-darkgrey);
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.user-navbar_buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+
+}
+
+.user-navbar_buttons>* {
+    border-bottom: 3px solid var(--clr-midgrey);
+    font-size: 1.8rem;
+}
+
+.user-navbar_btn {
+    font-size: 1.8rem;
+    font-weight: bold;
+    outline: none;
+    padding: 0;
+}
+
+.user-navbar_btn-recipes {
+    color: var(--clr-green);
+}
+
+.user-navbar_btn-profile {
+    color: var(--clr-orange);
+}
+
+.user-navbar_logout-btn {
+    color: var(--clr-midgrey);
+
+
+}

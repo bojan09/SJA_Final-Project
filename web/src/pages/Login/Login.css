@@ -1,0 +1,83 @@
+.login-container {
+    height: 60rem;
+    display: grid;
+    grid-template-columns: 2;
+    grid-template-rows: 2;
+}
+
+.login-left_container {
+    grid-column: 1;
+}
+
+
+.login-heading {
+    padding-top: 2rem;
+    grid-row: 1;
+}
+
+.login-heading::after {
+    width: 90%;
+}
+
+
+.login-welcome {
+    color: var(--clr-darkgrey);
+    grid-row: 2;
+    font-size: 4.6rem;
+    padding-top: 7rem;
+}
+
+.login-welcome span {
+    color: var(--clr-orange);
+    font-family: var(--ff-roboto-slab);
+}
+
+.login-description {
+    width: 60ch;
+    padding-top: 3rem;
+    font-size: 2rem;
+    font-family: var(--ff-roboto-slab);
+    color: var(--clr-midgrey);
+}
+
+.login-right_container {
+    grid-column: 2;
+    margin: 1rem 5rem 0 0;
+}
+
+.login-form {
+    grid-row: 2;
+    display: grid;
+    margin-top: 2.8rem;
+    padding: 2rem;
+}
+
+.login-form .email {
+    margin-bottom: 2rem;
+}
+
+.login-form label {
+    color: var(--clr-orange);
+    font-family: var(--ff-roboto-slab);
+    font-weight: bold;
+    margin: 0 0 .5rem 1rem;
+}
+
+.login-form input::-webkit-input-placeholder {
+    font-family: var(--ff-roboto-slab);
+    padding-left: .4rem;
+}
+
+.login-btn {
+    width: 11.7rem;
+    height: 4.5rem;
+    background: var(--clr-green);
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.6rem;
+    border: 1px solid var(--clr-midgrey);
+    border-radius: .6rem;
+    cursor: pointer;
+    box-shadow: 1px 1px 4px 1px var(--clr-lightgrey);
+    margin: 3.2rem 0 0 1rem;
+}

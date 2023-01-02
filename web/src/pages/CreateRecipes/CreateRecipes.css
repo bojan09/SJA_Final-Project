@@ -1,0 +1,13 @@
+.create-recipes {
+    height: 80vh;
+}
+
+.create-recipe_img {
+    background-color: var(--clr-orange);
+    border-radius: 50%;
+    width: 3.5rem;
+    height: 3.5rem;
+    padding: .5rem;
+    display: grid;
+    place-content: center;
+}

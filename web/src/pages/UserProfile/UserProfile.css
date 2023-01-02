@@ -1,0 +1,38 @@
+.user-profile {
+    height: 61.5vh;
+}
+
+.user-profile_heading {
+    margin-bottom: 8rem;
+}
+
+.user-profile_heading::after {
+    width: 84%;
+}
+
+.user-profile_form {
+    display: flex;
+    gap: 3.5rem;
+}
+
+.user-profile_form label {
+    color: var(--clr-orange);
+    font-family: var(--ff-roboto-slab);
+    font-weight: bold;
+    margin-bottom: .5rem;
+}
+
+.user-profile_form label[for="img"] {
+    color: var(--clr-midgrey);
+}
+
+.user-profile_form input {
+    display: grid;
+    margin: 1rem 0 3rem;
+    width: 29.4rem;
+}
+
+.user-profile_form .birthdate {
+    display: flex;
+    color: var(--clr-midgrey);
+}

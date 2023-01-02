@@ -1,0 +1,66 @@
+.my-recipes_container {
+    position: relative;
+}
+
+.my-recipes_main-heading {
+    padding: 1rem 0;
+}
+
+.my-recipes_main-heading::after {
+    width: 79.5%;
+}
+
+.my-recipes_add-recipe {
+    background-color: var(--clr-orange);
+    border-radius: 50%;
+    box-shadow: 0 3px 6px var(--clr-midgrey);
+    width: 4.1rem;
+    height: 4.1rem;
+    display: grid;
+    place-content: center;
+    position: absolute;
+    bottom: 1.5rem;
+    right: -.5rem;
+}
+
+
+.my-recipes_category-names {
+    display: grid;
+    grid-template-columns: 8;
+    grid-template-rows: 1;
+    place-items: center;
+    padding: 4rem 2rem 1rem 2rem;
+    color: var(--clr-orange);
+}
+
+.my-recipes_recipe-name {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    justify-self: flex-start;
+
+    width: 23.5rem;
+}
+
+.my-recipes_category {
+    grid-column: 2/3;
+    grid-row: 1/2;
+
+    justify-self: flex-end;
+    width: 16rem;
+}
+
+.my-recipes_createdOn {
+    grid-column: 3/4;
+    grid-row: 1/2;
+
+    justify-self: flex-end;
+}
+
+.my-recipes_delete-btn {
+    grid-column: 7/8;
+    grid-row: 1/2;
+}
+
+.my-recipes_delete-btn {
+    margin-left: 28rem;
+}
