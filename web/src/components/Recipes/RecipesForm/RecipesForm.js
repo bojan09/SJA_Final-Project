@@ -1,12 +1,11 @@
+import RecipesImageUpload from "../RecipiesImageUpload/RecipesImageUpload";
+
 import "./RecipesForm.css";
 
 // hooks
 import { useRecipesContext } from "../../../hooks/useRecipesContext";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { useState } from "react";
-
-// temporary test image
-import pizza from "../../../Archive/pizza.webp";
 
 const RecipesForm = () => {
   const { dispatch } = useRecipesContext();
@@ -18,8 +17,9 @@ const RecipesForm = () => {
   const [shortDescription, setShortDescription] = useState("");
   const [preperationTime, setPreperationTime] = useState("");
   const [persons, setPersons] = useState("");
+  const [recipePicture, setRecipePicture] = useState("");
   const [error, setError] = useState(null);
-  const [emptyInputFields, setEmptyInputFields] = useState([]);
+  const [emptyFields, setEmptyFields] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,6 +36,7 @@ const RecipesForm = () => {
       preperationTime,
       shortDescription,
       persons,
+      recipePicture,
     };
 
     const response = await fetch("/api/v1/recipes/", {
@@ -51,23 +52,20 @@ const RecipesForm = () => {
 
     if (!response.ok) {
       setError(json.error);
-      setEmptyInputFields(json.emptyInputFields);
+      setEmptyFields(json.emptyFields);
     }
     if (response.ok) {
-      setError(null);
-      setEmptyInputFields([]);
       setCategory("");
       setTitle("");
       setRecipeDescription("");
       setShortDescription("");
       setPreperationTime("");
       setPersons("");
+      setRecipePicture("");
+      setError(null);
+      setEmptyFields([]);
       dispatch({ type: "CREATE_RECIPE", payload: json });
     }
-  };
-
-  const fileSelected = (e) => {
-    console.log(e);
   };
 
   return (
@@ -75,38 +73,30 @@ const RecipesForm = () => {
       <form className="create-recipe_form" onSubmit={handleSubmit}>
         <div className="create-recipe_form-img heading-secondary">
           <label>Recipe image</label>
-          <img className="create-recipe_form-img" src={pizza} alt="pizzaa" />
-          <input type="file" id="img" onChange={fileSelected} />
-          <label
-            htmlFor="img"
-            className="create-recipe_upload-img_label-btn image-upload_btn"
-          >
-            Upload Image
-          </label>
+          <RecipesImageUpload />
         </div>
 
         <div className="create-recipe_form-title heading-secondary">
           <label htmlFor="recipe_title">Recipe Title</label>
           <input
+            required
             type="text"
-            id="recipe_title"
             placeholder="Homemade Pizza"
             onChange={(e) => setTitle(e.target.value)}
             value={title}
-            className={emptyInputFields.includes("title") ? "error" : ""}
+            className={emptyFields.includes("title") ? "error" : ""}
           />
         </div>
 
         <div className="create-recipe_form-recipeDescription heading-secondary">
           <label htmlFor="recipeDescription">Recipe</label>
           <textarea
+            required
             placeholder="There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which dont look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isnt anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures"
             id="recipeDescription"
             onChange={(e) => setRecipeDescription(e.target.value)}
             value={recipeDescription}
-            className={
-              emptyInputFields.includes("recipeDescription") ? "error" : ""
-            }
+            className={emptyFields.includes("recipeDescription") ? "error" : ""}
           ></textarea>
         </div>
 
@@ -118,7 +108,8 @@ const RecipesForm = () => {
             id="recipeCategory"
             onChange={(e) => setCategory(e.target.value)}
             value={category}
-            className={emptyInputFields.includes("category") ? "error" : ""}
+            required
+            className={emptyFields.includes("category") ? "error" : ""}
           >
             <option value="" disabled defaultChecked hidden>
               Breakfast
@@ -144,9 +135,8 @@ const RecipesForm = () => {
             max="150"
             onChange={(e) => setPreperationTime(e.target.value)}
             value={preperationTime}
-            className={
-              emptyInputFields.includes("preperationTime") ? "error" : ""
-            }
+            required
+            className={emptyFields.includes("preperationTime") ? "error" : ""}
           />
         </div>
 
@@ -160,7 +150,8 @@ const RecipesForm = () => {
             max="15"
             onChange={(e) => setPersons(e.target.value)}
             value={persons}
-            className={emptyInputFields.includes("persons") ? "error" : ""}
+            required
+            className={emptyFields.includes("persons") ? "error" : ""}
           />
         </div>
 
@@ -171,20 +162,13 @@ const RecipesForm = () => {
             id="shortDescription"
             onChange={(e) => setShortDescription(e.target.value)}
             value={shortDescription}
-            className={
-              emptyInputFields.includes("shortDescription") ? "error" : ""
-            }
+            required
+            className={emptyFields.includes("shortDescription") ? "error" : ""}
           ></textarea>
         </div>
 
-        <button
-          onClick={handleSubmit}
-          className="create-recipe_form-btn save-btn"
-        >
-          save
-        </button>
-
-        {error && <div className="error-notification">{error}</div>}
+        <button className="create-recipe_form-btn save-btn">save</button>
+        {error && <div className="error">{error}</div>}
       </form>
     </div>
   );

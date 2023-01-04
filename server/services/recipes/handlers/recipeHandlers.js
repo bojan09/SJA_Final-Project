@@ -1,5 +1,6 @@
+const mongoose = require("mongoose");
+
 const Recipe = require("../../../pkg/recipes");
-const auth = require("../../auth/handlers/auth");
 
 const getAllRecipes = async (req, res) => {
   try {
@@ -113,7 +114,7 @@ const starRecipe = async (req, res) => {
 const deleteRecipe = async (req, res) => {
   try {
     await Recipe.deleteRecipe(req.params.id, req.auth.uid);
-    return res.status(204).send("Recipe deleted");
+    return res.status(200).send("");
   } catch (err) {
     console.log(err);
     return res.status(500).send("Internal Server Error!");

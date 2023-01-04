@@ -16,7 +16,9 @@ export const recipesReducer = (state, action) => {
 
     case "UPDATE_RECIPE":
       return {
-        recipes: state.recipes.filter((r) => r._id === action.payload._id),
+        recipes: state.recipes.map((r) =>
+          r._id === action.payload._id ? action.payload : r
+        ),
       };
 
     case "STAR_RECIPE":

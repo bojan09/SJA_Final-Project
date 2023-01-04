@@ -23,9 +23,11 @@ const UserRecipes = ({ recipe }) => {
     const response = await fetch("/api/v1/recipes/" + recipe._id, {
       method: "DELETE",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${user.token}`,
       },
     });
+
     const json = await response.json();
 
     if (response.ok) {

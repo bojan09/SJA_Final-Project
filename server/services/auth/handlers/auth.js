@@ -70,17 +70,14 @@ const login = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    const updateUser = {
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
-      birthday: req.body.birthday,
-      password: bcrypt.hashSync(req.body.password),
-      repeatPassword: bcrypt.hashSync(req.body.repeatPassword),
-    };
+    let u = user.getUserByEmail(req.auth.email);
+    if (u) {
+      req.body.password = bcrypt.hashSync(req.body.password);
+      req.body.repeatPassword = bcrypt.hashSync(req.body.repeatPassword);
+      user.updateUser(req.auth.email, req.body);
+    }
 
-    await user.updateUser(req.auth.uid, updateUser);
-    console.log(req.auth, "User was updated");
-    return res.status(200).send("User data successfully updated");
+    return res.status(204).send("User updated ");
   } catch (err) {
     console.log(err);
     return res.status(500).send("Internal server error");

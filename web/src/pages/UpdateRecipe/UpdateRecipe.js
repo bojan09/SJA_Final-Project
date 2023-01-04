@@ -1,5 +1,6 @@
 import "../../components/Recipes/RecipesForm/RecipesForm.css";
 import "../MyRecipes/MyRecipes.css";
+import RecipesImageUpload from "../../components/Recipes/RecipiesImageUpload/RecipesImageUpload";
 
 // hooks
 import { useRecipesContext } from "../../hooks/useRecipesContext";
@@ -9,8 +10,6 @@ import { useState } from "react";
 
 // go back to my recipes img
 import goBackMyRecipes from "../../Archive/icon_back_white.svg";
-// temporary test image
-import pizza from "../../Archive/pizza.webp";
 
 const UpdateRecipe = ({ recipe }) => {
   const { dispatch } = useRecipesContext();
@@ -23,7 +22,6 @@ const UpdateRecipe = ({ recipe }) => {
   const [preperationTime, setPreperationTime] = useState("");
   const [persons, setPersons] = useState("");
   const [error, setError] = useState(null);
-  const [emptyInputFields, setEmptyInputFields] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,6 +44,7 @@ const UpdateRecipe = ({ recipe }) => {
       method: "PUT",
       body: JSON.stringify(updateRecipe),
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${user.token}`,
       },
     });
@@ -54,11 +53,9 @@ const UpdateRecipe = ({ recipe }) => {
 
     if (!response.ok) {
       setError(json.error);
-      setEmptyInputFields(json.emptyInputFields);
     }
     if (response.ok) {
       setError(null);
-      setEmptyInputFields([]);
       setCategory("");
       setTitle("");
       setRecipeDescription("");
@@ -67,10 +64,6 @@ const UpdateRecipe = ({ recipe }) => {
       setPersons("");
       dispatch({ type: "UPDATE_RECIPE", payload: json });
     }
-  };
-
-  const fileSelected = (e) => {
-    console.log(e);
   };
 
   return (
@@ -90,38 +83,28 @@ const UpdateRecipe = ({ recipe }) => {
       <form className="create-recipe_form" onSubmit={handleSubmit}>
         <div className="create-recipe_form-img heading-secondary">
           <label>Recipe image</label>
-          <img className="create-recipe_form-img" src={pizza} alt="pizzaa" />
-          <input type="file" id="img" onChange={fileSelected} />
-          <label
-            htmlFor="img"
-            className="create-recipe_upload-img_label-btn image-upload_btn"
-          >
-            Upload Image
-          </label>
+          <RecipesImageUpload />
         </div>
 
         <div className="create-recipe_form-title heading-secondary">
           <label htmlFor="recipe_title">Recipe Title</label>
           <input
+            required
             type="text"
-            id="recipe_title"
             placeholder="Homemade Pizza"
             onChange={(e) => setTitle(e.target.value)}
             value={title}
-            className={emptyInputFields.includes("title") ? "error" : ""}
           />
         </div>
 
         <div className="create-recipe_form-recipeDescription heading-secondary">
           <label htmlFor="recipeDescription">Recipe</label>
           <textarea
+            required
             placeholder="There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which dont look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isnt anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures"
             id="recipeDescription"
             onChange={(e) => setRecipeDescription(e.target.value)}
             value={recipeDescription}
-            className={
-              emptyInputFields.includes("recipeDescription") ? "error" : ""
-            }
           ></textarea>
         </div>
 
@@ -133,7 +116,7 @@ const UpdateRecipe = ({ recipe }) => {
             id="recipeCategory"
             onChange={(e) => setCategory(e.target.value)}
             value={category}
-            className={emptyInputFields.includes("category") ? "error" : ""}
+            required
           >
             <option value="" disabled defaultChecked hidden>
               Breakfast
@@ -159,9 +142,7 @@ const UpdateRecipe = ({ recipe }) => {
             max="150"
             onChange={(e) => setPreperationTime(e.target.value)}
             value={preperationTime}
-            className={
-              emptyInputFields.includes("preperationTime") ? "error" : ""
-            }
+            required
           />
         </div>
 
@@ -175,7 +156,7 @@ const UpdateRecipe = ({ recipe }) => {
             max="15"
             onChange={(e) => setPersons(e.target.value)}
             value={persons}
-            className={emptyInputFields.includes("persons") ? "error" : ""}
+            required
           />
         </div>
 
@@ -186,20 +167,12 @@ const UpdateRecipe = ({ recipe }) => {
             id="shortDescription"
             onChange={(e) => setShortDescription(e.target.value)}
             value={shortDescription}
-            className={
-              emptyInputFields.includes("shortDescription") ? "error" : ""
-            }
+            required
           ></textarea>
         </div>
 
-        <button
-          onClick={handleSubmit}
-          className="create-recipe_form-btn save-btn"
-        >
-          save
-        </button>
-
-        {error && <div className="error-notification">{error}</div>}
+        <button className="create-recipe_form-btn save-btn">save</button>
+        {error && <div className="error">{error}</div>}
       </form>
     </div>
   );

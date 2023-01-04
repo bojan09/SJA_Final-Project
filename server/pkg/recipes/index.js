@@ -11,7 +11,8 @@ const Recipe = mongoose.model(
     preperationTime: Number,
     persons: Number,
     starsCount: Number,
-    createdOn: Date,
+    recipePicture: String,
+    createdOn: { type: Date, default: Date.now },
   },
   "recipes"
 );
@@ -46,7 +47,7 @@ const create = async (data) => {
 };
 
 const update = async (id, uid, data) => {
-  return Recipe.updateOne({ _id: id, author_id: uid }, data);
+  return Recipe.findByIdAndUpdate({ _id: id, author_id: uid }, data);
 };
 
 const starRecipe = async (id, uid, data) => {
@@ -59,8 +60,8 @@ const starRecipe = async (id, uid, data) => {
   );
 };
 
-const deleteRecipe = async (id, uid) => {
-  return Recipe.deleteOne({ _id: id, author_id: uid });
+const deleteRecipe = async (id, uid, data) => {
+  return Recipe.deleteOne({ _id: id, author_id: uid }, data);
 };
 
 module.exports = {

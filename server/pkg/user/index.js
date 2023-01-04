@@ -9,7 +9,7 @@ const User = mongoose.model(
     password: String,
     repeatPassword: String,
     birthdate: Date,
-    CreatedOn: Date,
+    createdOn: { type: Date, default: Date.now },
   },
   "users"
 );
@@ -27,8 +27,8 @@ const getUserByEmail = async (email) => {
   return User.findOne({ email });
 };
 
-const updateUser = async (id, data) => {
-  return User.updateOne({ _id: id }, data);
+const updateUser = async (email, data) => {
+  return User.updateOne({ email: email }, data);
 };
 
 const getById = async (uid, data) => {

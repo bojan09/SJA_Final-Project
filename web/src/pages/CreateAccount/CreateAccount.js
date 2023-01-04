@@ -1,10 +1,12 @@
 import "./CreateAccount.css";
+
+// Hooks
 import { useSignup } from "../../hooks/useSignup";
 import { useState } from "react";
 
 const CreateAccount = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [first_name, setFirst_Name] = useState("");
+  const [last_name, setLast_Name] = useState("");
   const [email, setEmail] = useState("");
   const [birthdate, setBirthdate] = useState("");
   const [password, setPassword] = useState("");
@@ -15,7 +17,7 @@ const CreateAccount = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await signup(email, password, repeatPassword);
+    await signup(first_name, last_name, email, password, repeatPassword);
   };
 
   return (
@@ -44,8 +46,8 @@ const CreateAccount = () => {
                   id="first_name"
                   type="text"
                   placeholder="John"
-                  onChange={(e) => setFirstName(e.target.value)}
-                  value={firstName}
+                  onChange={(e) => setFirst_Name(e.target.value)}
+                  value={first_name}
                   required
                 />
               </div>
@@ -56,8 +58,8 @@ const CreateAccount = () => {
                   id="last_name"
                   type="text"
                   placeholder="Smith"
-                  onChange={(e) => setLastName(e.target.value)}
-                  value={lastName}
+                  onChange={(e) => setLast_Name(e.target.value)}
+                  value={last_name}
                   required
                 />
               </div>
