@@ -31,7 +31,7 @@ const UpdateRecipe = ({ recipe }) => {
       return;
     }
 
-    const updateRecipe = {
+    const update = {
       category,
       title,
       recipeDescription,
@@ -41,18 +41,18 @@ const UpdateRecipe = ({ recipe }) => {
     };
 
     const response = await fetch("/api/v1/recipes/" + recipe._id, {
-      method: "PUT",
-      body: JSON.stringify(updateRecipe),
+      method: "PATCH",
       headers: {
+        body: JSON.stringify(update),
         "Content-Type": "application/json",
         Authorization: `Bearer ${user.token}`,
       },
     });
 
-    const json = await response.json();
+    const data = await response.json();
 
     if (!response.ok) {
-      setError(json.error);
+      setError(data.error);
     }
     if (response.ok) {
       setError(null);
@@ -62,7 +62,7 @@ const UpdateRecipe = ({ recipe }) => {
       setShortDescription("");
       setPreperationTime("");
       setPersons("");
-      dispatch({ type: "UPDATE_RECIPE", payload: json });
+      dispatch({ type: "UPDATE_RECIPE", payload: data });
     }
   };
 

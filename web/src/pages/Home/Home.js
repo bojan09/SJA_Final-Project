@@ -14,7 +14,7 @@ const Home = () => {
 
   useEffect(() => {
     const fetchRecipes = async () => {
-      const response = await fetch("/api/v1/recipes", {
+      const response = await fetch("/api/v1/recipes/", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${user.token}`,

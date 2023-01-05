@@ -47,17 +47,11 @@ const create = async (data) => {
 };
 
 const update = async (id, uid, data) => {
-  return Recipe.findByIdAndUpdate({ _id: id, author_id: uid }, data);
+  return Recipe.updateOne({ _id: id, author_id: uid }, data);
 };
 
-const starRecipe = async (id, uid, data) => {
-  return Recipe.updateOne(
-    {
-      _id: id,
-      author_id: uid,
-    },
-    data
-  );
+const star = async (id) => {
+  return Recipe.updateOne({ _id: id }, { $inc: { starsCount: +1 } });
 };
 
 const deleteRecipe = async (id, uid, data) => {
@@ -73,6 +67,6 @@ module.exports = {
   getDinner,
   create,
   update,
-  starRecipe,
+  star,
   deleteRecipe,
 };
