@@ -83,7 +83,6 @@ const updateRecipe = async (req, res) => {
   try {
     let payload = {
       ...req.body,
-      _id: id,
       author_id: req.auth.uid,
       published_on: new Date(),
     };

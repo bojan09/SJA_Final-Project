@@ -24,45 +24,49 @@ const UpdateRecipe = ({ recipe }) => {
   const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
 
-    if (!user) {
-      setError("You must be logged in");
-      return;
-    }
+      if (!user) {
+        setError("You must be logged in");
+        return;
+      }
 
-    const update = {
-      category,
-      title,
-      recipeDescription,
-      preperationTime,
-      shortDescription,
-      persons,
-    };
+      const update = {
+        category,
+        title,
+        recipeDescription,
+        preperationTime,
+        shortDescription,
+        persons,
+      };
 
-    const response = await fetch("/api/v1/recipes/" + recipe._id, {
-      method: "PATCH",
-      headers: {
-        body: JSON.stringify(update),
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+      const response = await fetch(`/api/v1/recipes/${recipe._id}`, {
+        method: "PATCH",
+        headers: {
+          body: JSON.stringify(update),
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (!response.ok) {
-      setError(data.error);
-    }
-    if (response.ok) {
-      setError(null);
-      setCategory("");
-      setTitle("");
-      setRecipeDescription("");
-      setShortDescription("");
-      setPreperationTime("");
-      setPersons("");
-      dispatch({ type: "UPDATE_RECIPE", payload: data });
+      if (!response.ok) {
+        setError(data.error);
+      }
+      if (response.ok) {
+        setError(null);
+        setCategory("");
+        setTitle("");
+        setRecipeDescription("");
+        setShortDescription("");
+        setPreperationTime("");
+        setPersons("");
+        dispatch({ type: "UPDATE_RECIPE", payload: data });
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
