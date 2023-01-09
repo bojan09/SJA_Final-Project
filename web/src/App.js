@@ -26,7 +26,7 @@ import {
 // components
 import { Navbar, Footer } from "./components";
 
-function App() {
+function App({ recipe }) {
   const { user } = useAuthContext();
   const [currentId, setCurrentId] = useState(0);
 

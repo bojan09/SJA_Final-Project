@@ -1,5 +1,3 @@
-import RecipesImageUpload from "../RecipiesImageUpload/RecipesImageUpload";
-
 import "./RecipesForm.css";
 
 // hooks
@@ -19,7 +17,6 @@ const RecipesForm = () => {
   const [persons, setPersons] = useState("");
   const [recipePicture, setRecipePicture] = useState("");
   const [error, setError] = useState(null);
-  const [emptyFields, setEmptyFields] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,8 +49,8 @@ const RecipesForm = () => {
 
     if (!response.ok) {
       setError(json.error);
-      setEmptyFields(json.emptyFields);
     }
+
     if (response.ok) {
       setCategory("");
       setTitle("");
@@ -63,9 +60,32 @@ const RecipesForm = () => {
       setPersons("");
       setRecipePicture("");
       setError(null);
-      setEmptyFields([]);
       dispatch({ type: "CREATE_RECIPE", payload: json });
     }
+  };
+
+  const handleUpload = async (e) => {
+    e.preventDefault();
+
+    const response = await fetch("/api/v1/storage", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        slika: "slika",
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+
+    const json = await response.json();
+
+    if (!response.ok) {
+      setError(json.error);
+    }
+    if (response.ok) {
+      setRecipePicture("");
+      setError(null);
+    }
+    dispatch({ type: "CREATE_RECIPE", payload: json });
   };
 
   return (
@@ -73,7 +93,25 @@ const RecipesForm = () => {
       <form className="create-recipe_form" onSubmit={handleSubmit}>
         <div className="create-recipe_form-img heading-secondary">
           <label>Recipe image</label>
-          <RecipesImageUpload />
+          <img
+            className="create-recipe_form-img"
+            src={recipePicture}
+            alt="recipe pic here"
+          />
+          <input
+            type="file"
+            id="img"
+            value={recipePicture}
+            onChange={(e) => setRecipePicture(e.target.value)}
+          />
+
+          <label
+            htmlFor="img"
+            className="create-recipe_upload-img_label-btn image-upload_btn"
+            onClick={handleUpload}
+          >
+            Upload Image
+          </label>
         </div>
 
         <div className="create-recipe_form-title heading-secondary">
@@ -84,7 +122,6 @@ const RecipesForm = () => {
             placeholder="Homemade Pizza"
             onChange={(e) => setTitle(e.target.value)}
             value={title}
-            className={emptyFields.includes("title") ? "error" : ""}
           />
         </div>
 
@@ -96,7 +133,6 @@ const RecipesForm = () => {
             id="recipeDescription"
             onChange={(e) => setRecipeDescription(e.target.value)}
             value={recipeDescription}
-            className={emptyFields.includes("recipeDescription") ? "error" : ""}
           ></textarea>
         </div>
 
@@ -109,7 +145,6 @@ const RecipesForm = () => {
             onChange={(e) => setCategory(e.target.value)}
             value={category}
             required
-            className={emptyFields.includes("category") ? "error" : ""}
           >
             <option value="" disabled defaultChecked hidden>
               Breakfast
@@ -136,7 +171,6 @@ const RecipesForm = () => {
             onChange={(e) => setPreperationTime(e.target.value)}
             value={preperationTime}
             required
-            className={emptyFields.includes("preperationTime") ? "error" : ""}
           />
         </div>
 
@@ -151,7 +185,6 @@ const RecipesForm = () => {
             onChange={(e) => setPersons(e.target.value)}
             value={persons}
             required
-            className={emptyFields.includes("persons") ? "error" : ""}
           />
         </div>
 
@@ -163,7 +196,6 @@ const RecipesForm = () => {
             onChange={(e) => setShortDescription(e.target.value)}
             value={shortDescription}
             required
-            className={emptyFields.includes("shortDescription") ? "error" : ""}
           ></textarea>
         </div>
 

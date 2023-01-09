@@ -1,0 +1,10 @@
+{
+  "configurations": [
+    {
+      "type": "chrome",
+      "name": "http://\"/api/v1/recipes/\" + recipe._id",
+      "request": "launch",
+      "url": "http://\"/api/v1/recipes/\" + recipe._id"
+    }
+  ]
+}

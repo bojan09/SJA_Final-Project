@@ -1,6 +1,5 @@
 import "../../components/Recipes/RecipesForm/RecipesForm.css";
 import "../MyRecipes/MyRecipes.css";
-import RecipesImageUpload from "../../components/Recipes/RecipiesImageUpload/RecipesImageUpload";
 
 // hooks
 import { useRecipesContext } from "../../hooks/useRecipesContext";
@@ -11,7 +10,7 @@ import { useState } from "react";
 // go back to my recipes img
 import goBackMyRecipes from "../../Archive/icon_back_white.svg";
 
-const UpdateRecipe = ({ recipe }) => {
+const UpdateRecipe = (recipe) => {
   const { dispatch } = useRecipesContext();
   const { user } = useAuthContext();
 
@@ -21,6 +20,7 @@ const UpdateRecipe = ({ recipe }) => {
   const [shortDescription, setShortDescription] = useState("");
   const [preperationTime, setPreperationTime] = useState("");
   const [persons, setPersons] = useState("");
+  const [recipePicture, setRecipePicture] = useState("");
   const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
@@ -39,9 +39,10 @@ const UpdateRecipe = ({ recipe }) => {
         preperationTime,
         shortDescription,
         persons,
+        recipePicture,
       };
 
-      const response = await fetch(`/api/v1/recipes/${recipe._id}`, {
+      const response = await fetch("/api/v1/recipes/" + recipe._id, {
         method: "PATCH",
         headers: {
           body: JSON.stringify(update),
@@ -55,6 +56,7 @@ const UpdateRecipe = ({ recipe }) => {
       if (!response.ok) {
         setError(data.error);
       }
+
       if (response.ok) {
         setError(null);
         setCategory("");
@@ -87,7 +89,23 @@ const UpdateRecipe = ({ recipe }) => {
       <form className="create-recipe_form" onSubmit={handleSubmit}>
         <div className="create-recipe_form-img heading-secondary">
           <label>Recipe image</label>
-          <RecipesImageUpload />
+          <img
+            className="create-recipe_form-img"
+            src={recipePicture}
+            alt="recipe pic here"
+          />
+          <input
+            type="file"
+            id="img"
+            value={recipePicture}
+            onChange={(e) => setRecipePicture(e.target.value)}
+          />
+          <label
+            htmlFor="img"
+            className="create-recipe_upload-img_label-btn image-upload_btn"
+          >
+            Upload Image
+          </label>
         </div>
 
         <div className="create-recipe_form-title heading-secondary">

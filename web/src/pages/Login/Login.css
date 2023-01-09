@@ -81,3 +81,16 @@
     box-shadow: 1px 1px 4px 1px var(--clr-lightgrey);
     margin: 3.2rem 0 0 1rem;
 }
+
+.validation {
+    font-family: var(--ff-roboto-slab);
+    font-size: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 1rem;
+    background-color: rgb(248, 213, 213);
+    color: red;
+}

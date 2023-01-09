@@ -48,11 +48,11 @@ const login = async (req, res) => {
     // 1. проверка дали корисникот со дадениот email постои
     let u = await user.getUserByEmail(req.body.email);
     if (!u) {
-      return res.status(400).send("Bad request. User does not exist!");
+      return res.status(400).send("User does not exist!");
     }
     // 2. проверка дали внесената лозинка на корисникот се совпаѓа со таа од базата
     if (!bcrypt.compareSync(req.body.password, u.password)) {
-      return res.status(400).send("Bad request. Passwords don't match!");
+      return res.status(400).send("Passwords don't match!");
     }
     // 3. се генерира и испраќа токен
     let payload = {

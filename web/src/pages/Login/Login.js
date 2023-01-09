@@ -6,11 +6,15 @@ import { useLogin } from "../../hooks/useLogin";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [validateError, setValidateError] = useState(false);
 
   const { login, error, isLoading } = useLogin();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (email || password !== e.target.value) {
+      setValidateError(true);
+    }
 
     await login(email, password);
   };
@@ -35,6 +39,14 @@ const Login = () => {
         </div>
         <div className="login-right_container">
           <form className="login-form" onSubmit={handleSubmit}>
+            {validateError && email !== setEmail ? (
+              <span className="validation">
+                Email does not exist or password is incorect.
+                <span>Please try again.</span>
+              </span>
+            ) : (
+              ""
+            )}
             <label htmlFor="email">Email</label>
             <input
               className="email"

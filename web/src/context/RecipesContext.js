@@ -1,8 +1,7 @@
 import { createContext, useReducer } from "react";
 
 export const RecipesContext = createContext();
-// state,
-export const recipesReducer = (recipes = [], action) => {
+export const recipesReducer = (state, action) => {
   switch (action.type) {
     case "FETCH_RECIPES":
       return {
@@ -11,36 +10,39 @@ export const recipesReducer = (recipes = [], action) => {
 
     case "CREATE_RECIPE":
       return {
-        recipes: [action.payload, ...recipes.recipes],
+        recipes: [action.payload, ...state.recipes],
       };
 
     case "UPDATE_RECIPE":
-      return recipes.map((recipe) =>
-        recipe._id === action.payload._id ? action.payload : recipe
-      );
+      return {
+        recipes: state.recipes.map((recipe) =>
+          recipe._id === action.payload._id ? [...state.recipes.id] : recipe
+        ),
+      };
 
     case "STAR_RECIPE":
-      return recipes.map((recipe) =>
-        recipe._id === action.payload._id ? action.payload : recipe
-      );
+      return {
+        recipes: state.recipes.map((recipe) =>
+          recipe._id === action.payload._id ? action.payload : recipe
+        ),
+      };
 
     case "DELETE_RECIPE":
       return {
-        recipes: recipes.recipes.filter((r) => r._id !== action.payload._id),
+        recipes: state.recipes.filter((r) => r._id !== action.payload._id),
       };
 
     default:
-      return recipes;
+      return state;
   }
 };
 
 export const RecipesContextProvider = ({ children }) => {
-  const [recipes, dispatch] = useReducer(recipesReducer, {
+  const [state, dispatch] = useReducer(recipesReducer, {
     recipes: null,
   });
-
   return (
-    <RecipesContext.Provider value={{ ...recipes, dispatch }}>
+    <RecipesContext.Provider value={{ ...state, dispatch }}>
       {children}
     </RecipesContext.Provider>
   );

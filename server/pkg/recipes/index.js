@@ -54,8 +54,8 @@ const star = async (id) => {
   return Recipe.updateOne({ _id: id }, { $inc: { starsCount: +1 } });
 };
 
-const deleteRecipe = async (id, uid, data) => {
-  return Recipe.deleteOne({ _id: id, author_id: uid }, data);
+const deleteRecipe = async (id, uid) => {
+  return Recipe.deleteOne({ _id: id, author_id: uid });
 };
 
 module.exports = {

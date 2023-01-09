@@ -16,25 +16,20 @@ const UserRecipes = ({ recipe }) => {
   const { user } = useAuthContext();
 
   const handleDelete = async () => {
-    try {
-      if (!user) {
-        return;
-      }
+    if (!user) {
+      return;
+    }
 
-      const response = await fetch("/api/v1/recipes/" + recipe._id, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
-      const json = await response.json();
+    const response = await fetch("/api/v1/recipes/" + recipe._id, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+    const json = await response.json();
 
-      if (response.ok) {
-        dispatch({ type: "DELETE_RECIPE", payload: json });
-      }
-    } catch (error) {
-      console.log(recipe._id);
-      console.log(error);
+    if (response.ok) {
+      dispatch({ type: "DELETE_RECIPE", payload: json });
     }
   };
 

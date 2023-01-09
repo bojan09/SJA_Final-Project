@@ -46,6 +46,14 @@ app.delete("/api/v1/recipes/:id", Recipe.deleteRecipe);
 
 module.exports = Recipe;
 
+app.use(function (err, req, res, next) {
+  if (err.name === "UnauthorizedError") {
+    res.status(401).send("Invalid token...");
+  } else {
+    next(err);
+  }
+});
+
 app.listen(config.get("services").recipes.port, (err) => {
   if (err) {
     return console.log(err);
