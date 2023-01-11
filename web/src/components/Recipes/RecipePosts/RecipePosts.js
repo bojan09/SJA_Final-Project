@@ -23,18 +23,23 @@ const RecipePosts = ({ recipe }) => {
   const { dispatch } = useRecipesContext();
   const { user } = useAuthContext();
 
+  console.log(recipe._id);
   const addStarToRecipe = async () => {
-    const response = await fetch("/api/v1/recipes/" + recipe._id, {
-      method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    try {
+      const response = await fetch("/api/v1/recipes/" + recipe._id, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
 
-    const json = await response.json();
+      const json = await response.json();
 
-    if (response.ok) {
-      dispatch({ type: "STAR_RECIPE", payload: json });
+      if (response.ok) {
+        dispatch({ type: "STAR_RECIPE", payload: json });
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 

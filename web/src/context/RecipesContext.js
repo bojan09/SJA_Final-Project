@@ -1,7 +1,7 @@
 import { createContext, useReducer } from "react";
 
 export const RecipesContext = createContext();
-// state
+
 export const recipesReducer = (state, action) => {
   switch (action.type) {
     case "FETCH_RECIPES":
