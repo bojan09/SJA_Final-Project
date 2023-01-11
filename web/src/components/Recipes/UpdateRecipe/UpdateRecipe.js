@@ -28,50 +28,46 @@ const UpdateRecipe = ({ recipe }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      if (!user) {
-        setError("You must be logged in");
-        return;
-      }
+    if (!user) {
+      setError("You must be logged in");
+      return;
+    }
 
-      const update = {
-        category,
-        title,
-        recipeDescription,
-        preperationTime,
-        shortDescription,
-        persons,
-        recipePicture,
-      };
+    const update = {
+      category,
+      title,
+      recipeDescription,
+      preperationTime,
+      shortDescription,
+      persons,
+      recipePicture,
+    };
 
-      const response = await fetch("/api/v1/recipes/" + recipe._id, {
-        method: "PATCH",
-        body: JSON.stringify(update),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
+    const response = await fetch("/api/v1/recipes/" + recipe._id, {
+      method: "PATCH",
+      body: JSON.stringify(update),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
 
-      const json = await response.json();
+    const json = await response.json();
 
-      if (!response.ok) {
-        setError(json.error);
-      }
+    if (!response.ok) {
+      setError(json.error);
+    }
 
-      if (response.ok) {
-        setError(null);
-        setCategory("");
-        setTitle("");
-        setRecipeDescription("");
-        setShortDescription("");
-        setPreperationTime("");
-        setPersons("");
-        setRecipePicture("");
-        dispatch({ type: "UPDATE_RECIPE", payload: json });
-      }
-    } catch (error) {
-      console.log(error);
+    if (response.ok) {
+      setError(null);
+      setCategory("");
+      setTitle("");
+      setRecipeDescription("");
+      setShortDescription("");
+      setPreperationTime("");
+      setPersons("");
+      setRecipePicture("");
+      dispatch({ type: "UPDATE_RECIPE", payload: json });
     }
   };
 

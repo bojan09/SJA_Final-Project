@@ -25,9 +25,8 @@ const RecipePosts = ({ recipe }) => {
 
   const addStarToRecipe = async () => {
     const response = await fetch("/api/v1/recipes/" + recipe._id, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${user.token}`,
       },
     });

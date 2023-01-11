@@ -87,8 +87,7 @@ const updateRecipe = async (req, res) => {
       published_on: new Date(),
     };
     let u = await Recipe.update(req.params.id, req.auth.uid, payload);
-    console.log(u);
-    return res.status(204).send("");
+    return res.status(200).send(u);
   } catch (err) {
     console.log(err);
     return res.status(500).send("Internal Server Error!");
@@ -98,7 +97,7 @@ const updateRecipe = async (req, res) => {
 const starRecipe = async (req, res) => {
   try {
     let us = await Recipe.star(req.params.id);
-    res.send(us).status(200);
+    res.status(200).send(us);
   } catch (err) {
     console.log(err);
     res.status(404).send("ID not found");

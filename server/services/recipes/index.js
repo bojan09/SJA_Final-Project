@@ -38,9 +38,9 @@ app.get("/api/v1/recipes/dinner", Recipe.getAllDinnerRecipes);
 
 app.post("/api/v1/recipes/", Recipe.createRecipe);
 
-app.post("/api/v1/recipes/:id", Recipe.updateRecipe);
+app.patch("/api/v1/recipes/:id", Recipe.updateRecipe);
 
-app.put("/api/v1/recipes/:id", Recipe.starRecipe);
+app.patch("/api/v1/recipes/:id", Recipe.starRecipe);
 
 app.delete("/api/v1/recipes/:id", Recipe.deleteRecipe);
 

@@ -1,6 +1,7 @@
 import { createContext, useReducer } from "react";
 
 export const RecipesContext = createContext();
+// state
 export const recipesReducer = (state, action) => {
   switch (action.type) {
     case "FETCH_RECIPES":
@@ -23,7 +24,6 @@ export const recipesReducer = (state, action) => {
 
     case "STAR_RECIPE":
       return {
-        ...state.recipes,
         recipes: state.recipes.map((recipe) =>
           recipe._id === action.payload._id ? action.payload : recipe
         ),
@@ -31,7 +31,9 @@ export const recipesReducer = (state, action) => {
 
     case "DELETE_RECIPE":
       return {
-        recipes: state.recipes.filter((r) => r._id !== action.payload._id),
+        recipes: state.recipes.filter((r) =>
+          r._id !== action.payload._id ? action.payload : r
+        ),
       };
 
     default:
