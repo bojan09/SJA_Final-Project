@@ -15,13 +15,15 @@ export const recipesReducer = (state, action) => {
 
     case "UPDATE_RECIPE":
       return {
+        ...state.recipes,
         recipes: state.recipes.map((recipe) =>
-          recipe._id === action.payload._id ? [...state.recipes.id] : recipe
+          recipe._id === action.payload._id ? action.payload : recipe
         ),
       };
 
     case "STAR_RECIPE":
       return {
+        ...state.recipes,
         recipes: state.recipes.map((recipe) =>
           recipe._id === action.payload._id ? action.payload : recipe
         ),
@@ -39,7 +41,7 @@ export const recipesReducer = (state, action) => {
 
 export const RecipesContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(recipesReducer, {
-    recipes: null,
+    recipes: [],
   });
   return (
     <RecipesContext.Provider value={{ ...state, dispatch }}>

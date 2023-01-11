@@ -75,7 +75,7 @@ const createRecipe = async (req, res) => {
     return res.status(201).send(c);
   } catch (err) {
     console.log(err);
-    return res.status(500).send("ISE!");
+    return res.status(500).send("Internal Server Error!");
   }
 };
 
@@ -83,13 +83,14 @@ const updateRecipe = async (req, res) => {
   try {
     let payload = {
       ...req.body,
-      _id: id,
       author_id: req.auth.uid,
       published_on: new Date(),
     };
     let u = await Recipe.update(req.params.id, req.auth.uid, payload);
-    return res.status(200).send(u);
+    console.log(u);
+    return res.status(204).send("");
   } catch (err) {
+    console.log(err);
     return res.status(500).send("Internal Server Error!");
   }
 };
@@ -97,9 +98,9 @@ const updateRecipe = async (req, res) => {
 const starRecipe = async (req, res) => {
   try {
     let us = await Recipe.star(req.params.id);
-    res.status(200).send(us);
-  } catch (error) {
-    console.log(error);
+    res.send(us).status(200);
+  } catch (err) {
+    console.log(err);
     res.status(404).send("ID not found");
   }
 };

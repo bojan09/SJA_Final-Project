@@ -33,7 +33,6 @@ const RecipesForm = () => {
       preperationTime,
       shortDescription,
       persons,
-      recipePicture,
     };
 
     const response = await fetch("/api/v1/recipes/", {
@@ -58,7 +57,6 @@ const RecipesForm = () => {
       setShortDescription("");
       setPreperationTime("");
       setPersons("");
-      setRecipePicture("");
       setError(null);
       dispatch({ type: "CREATE_RECIPE", payload: json });
     }
@@ -67,8 +65,13 @@ const RecipesForm = () => {
   const handleUpload = async (e) => {
     e.preventDefault();
 
+    const img = {
+      recipePicture,
+    };
+
     const response = await fetch("/api/v1/storage", {
       method: "POST",
+      body: JSON.stringify(img),
       headers: {
         "Content-Type": "application/json",
         slika: "slika",
@@ -102,13 +105,13 @@ const RecipesForm = () => {
             type="file"
             id="img"
             value={recipePicture}
-            onChange={(e) => setRecipePicture(e.target.value)}
+            accept=".png,.jpg,.jpeg"
+            onChange={handleUpload}
           />
 
           <label
             htmlFor="img"
             className="create-recipe_upload-img_label-btn image-upload_btn"
-            onClick={handleUpload}
           >
             Upload Image
           </label>

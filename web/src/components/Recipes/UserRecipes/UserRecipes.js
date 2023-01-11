@@ -15,6 +15,8 @@ const UserRecipes = ({ recipe }) => {
   const { dispatch } = useRecipesContext();
   const { user } = useAuthContext();
 
+  console.log(recipe);
+
   const handleDelete = async () => {
     if (!user) {
       return;

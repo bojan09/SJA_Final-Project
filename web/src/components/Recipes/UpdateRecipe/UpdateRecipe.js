@@ -1,16 +1,16 @@
-import "../../components/Recipes/RecipesForm/RecipesForm.css";
-import "../MyRecipes/MyRecipes.css";
+import "../RecipesForm/RecipesForm.css";
+import "../../../pages/MyRecipes/MyRecipes.css";
 
 // hooks
-import { useRecipesContext } from "../../hooks/useRecipesContext";
-import { useAuthContext } from "../../hooks/useAuthContext";
-import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useRecipesContext } from "../../../hooks/useRecipesContext";
+import { useAuthContext } from "../../../hooks/useAuthContext";
+import { Link } from "react-router-dom";
 
 // go back to my recipes img
-import goBackMyRecipes from "../../Archive/icon_back_white.svg";
+import goBackMyRecipes from "../../../Archive/icon_back_white.svg";
 
-const UpdateRecipe = (recipe) => {
+const UpdateRecipe = ({ recipe }) => {
   const { dispatch } = useRecipesContext();
   const { user } = useAuthContext();
 
@@ -23,10 +23,12 @@ const UpdateRecipe = (recipe) => {
   const [recipePicture, setRecipePicture] = useState("");
   const [error, setError] = useState(null);
 
-  const handleSubmit = async (e) => {
-    try {
-      e.preventDefault();
+  console.log(recipe);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
       if (!user) {
         setError("You must be logged in");
         return;
@@ -44,17 +46,17 @@ const UpdateRecipe = (recipe) => {
 
       const response = await fetch("/api/v1/recipes/" + recipe._id, {
         method: "PATCH",
+        body: JSON.stringify(update),
         headers: {
-          body: JSON.stringify(update),
           "Content-Type": "application/json",
           Authorization: `Bearer ${user.token}`,
         },
       });
 
-      const data = await response.json();
+      const json = await response.json();
 
       if (!response.ok) {
-        setError(data.error);
+        setError(json.error);
       }
 
       if (response.ok) {
@@ -65,7 +67,8 @@ const UpdateRecipe = (recipe) => {
         setShortDescription("");
         setPreperationTime("");
         setPersons("");
-        dispatch({ type: "UPDATE_RECIPE", payload: data });
+        setRecipePicture("");
+        dispatch({ type: "UPDATE_RECIPE", payload: json });
       }
     } catch (error) {
       console.log(error);

@@ -77,7 +77,7 @@ const update = async (req, res) => {
       user.updateUser(req.auth.email, req.body);
     }
 
-    return res.status(204).send("User updated ");
+    return res.status(200).send(u);
   } catch (err) {
     console.log(err);
     return res.status(500).send("Internal server error");

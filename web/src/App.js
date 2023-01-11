@@ -1,7 +1,6 @@
 import "./App.css";
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useState } from "react";
 import { useAuthContext } from "./hooks/useAuthContext";
 
 // pages
@@ -11,7 +10,7 @@ import {
   CreateAccount,
   UserProfile,
   CreateRecipes,
-  UpdateRecipe,
+  // UpdateRecipe,
   MyRecipes,
 } from "./pages";
 
@@ -24,11 +23,10 @@ import {
 } from "./pages/MealCategories";
 
 // components
-import { Navbar, Footer } from "./components";
+import { Navbar, Footer, UpdateRecipe } from "./components";
 
-function App({ recipe }) {
+function App() {
   const { user } = useAuthContext();
-  const [currentId, setCurrentId] = useState(0);
 
   return (
     <div className="App">
@@ -61,15 +59,7 @@ function App({ recipe }) {
             />
             <Route path="/create-recipes" element={<CreateRecipes />} />
             <Route path="/my-recipes" element={<MyRecipes />} />
-            <Route
-              path="/update-recipe/:id"
-              element={
-                <UpdateRecipe
-                  currentId={currentId}
-                  setCurrentId={setCurrentId}
-                />
-              }
-            />
+            <Route path="/update-recipe/:id" element={<UpdateRecipe />} />
           </Routes>
         </div>
         <Footer />
