@@ -19,6 +19,7 @@ import pizza from "../../../Archive/pizza.webp";
 
 const RecipePosts = ({ recipe }) => {
   const [openModal, setOpenModal] = useState(false);
+  const [starCount, setStarCount] = useState(recipe.starsCount);
 
   const { dispatch } = useRecipesContext();
   const { user } = useAuthContext();
@@ -37,6 +38,7 @@ const RecipePosts = ({ recipe }) => {
 
       if (response.ok) {
         dispatch({ type: "STAR_RECIPE", payload: json });
+        setStarCount(starCount + 1);
       }
     } catch (err) {
       console.log(err);
@@ -52,6 +54,7 @@ const RecipePosts = ({ recipe }) => {
           <Modal
             key={recipe._id}
             recipe={recipe}
+            starCount={starCount}
             open={openModal}
             onClose={() => setOpenModal(false)}
           />
@@ -82,7 +85,7 @@ const RecipePosts = ({ recipe }) => {
               src={starsIcon}
               alt="how many stars"
             />
-            <span className="recipe-post_starsCount">{recipe.starsCount}</span>
+            <span className="recipe-post_starsCount">{starCount}</span>
           </button>
 
           <img

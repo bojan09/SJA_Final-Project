@@ -10,8 +10,9 @@ import persons from "../../Archive/icon_plate.svg";
 import stars from "../../Archive/icon_star.svg";
 import modalClose from "../../Archive/icon_close.svg";
 
-const Modal = ({ open, onClose, recipe }) => {
+const Modal = ({ open, onClose, recipe, starCount }) => {
   const [openModal, setOpenModal] = useState(false);
+
   if (!open) return null;
 
   return (
@@ -50,9 +51,7 @@ const Modal = ({ open, onClose, recipe }) => {
               </span>
 
               <img className="stars" src={stars} alt="how many stars" />
-              <span className="recipe-post_starsCount">
-                {recipe.starsCount}
-              </span>
+              <span className="recipe-post_starsCount">{starCount}</span>
             </div>
           </div>
           {/*Right side*/}

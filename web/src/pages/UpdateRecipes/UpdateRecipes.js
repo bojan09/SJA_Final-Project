@@ -19,7 +19,7 @@ const UpdateRecipes = () => {
 
   useEffect(() => {
     const fetchRecipes = async () => {
-      const response = await fetch("/api/v1/recipes/me", {
+      const response = await fetch("/api/v1/recipes/me/", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -54,9 +54,12 @@ const UpdateRecipes = () => {
           </Link>
         </div>
         {recipes &&
-          recipes.map((recipe) => (
-            <RecipesUpdateForm key={recipe._id} recipe={recipe} />
-          ))}
+          recipes.map(
+            (recipe, index) =>
+              index === 0 && (
+                <RecipesUpdateForm key={recipe._id} recipe={recipe} />
+              )
+          )}
       </div>
     </div>
   );
