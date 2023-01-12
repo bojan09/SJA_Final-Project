@@ -1,5 +1,7 @@
 import "./UserRecipes.css";
+
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 // date formating package from npm
 import dateFormat from "dateformat";
@@ -14,6 +16,8 @@ import deleteBtn from "../../../Archive/icon_trashcan.svg";
 const UserRecipes = ({ recipe }) => {
   const { dispatch } = useRecipesContext();
   const { user } = useAuthContext();
+
+  const [removeRecipe, setRemoveRecipe] = useState(false);
 
   console.log(recipe);
 
@@ -32,6 +36,7 @@ const UserRecipes = ({ recipe }) => {
 
     if (response.ok) {
       dispatch({ type: "DELETE_RECIPE", payload: json });
+      setRemoveRecipe(handleDelete);
     }
   };
 
@@ -45,7 +50,7 @@ const UserRecipes = ({ recipe }) => {
       <h3 className="user-recipe_createdOn">
         {dateFormat(recipe.createdOn, "d.mm.yyyy")}
       </h3>
-      <button className="user-recipes_delete-btn" onClick={handleDelete}>
+      <button className="user-recipes_delete-btn" onClick={(e) => removeRecipe}>
         <img src={deleteBtn} alt="delete recipe" />
       </button>
     </div>

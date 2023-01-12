@@ -18,7 +18,7 @@ const MyRecipes = () => {
 
   useEffect(() => {
     const fetchRecipes = async () => {
-      const response = await fetch("/api/v1/recipes/me", {
+      const response = await fetch("/api/v1/recipes/me/", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${user.token}`,
