@@ -5,12 +5,10 @@ import "../../../pages/MyRecipes/MyRecipes.css";
 import { useState } from "react";
 import { useRecipesContext } from "../../../hooks/useRecipesContext";
 import { useAuthContext } from "../../../hooks/useAuthContext";
-import { Link } from "react-router-dom";
 
 // go back to my recipes img
-import goBackMyRecipes from "../../../Archive/icon_back_white.svg";
 
-const UpdateRecipe = ({ recipe }) => {
+const RecipeUpdateForm = ({ recipe }) => {
   const { dispatch } = useRecipesContext();
   const { user } = useAuthContext();
 
@@ -73,18 +71,6 @@ const UpdateRecipe = ({ recipe }) => {
 
   return (
     <div className="create-recipe_container">
-      <div className="my-recipes_container">
-        <h1 className="my-recipes_main-heading heading-primary">My Recipes</h1>
-        <Link to="/my-recipes">
-          <button className="my-recipes_add-recipe">
-            <img
-              src={goBackMyRecipes}
-              alt="add-recipes"
-              className="my-recipes_img"
-            />
-          </button>
-        </Link>
-      </div>
       <form className="create-recipe_form" onSubmit={handleSubmit}>
         <div className="create-recipe_form-img heading-secondary">
           <label>Recipe image</label>
@@ -199,4 +185,4 @@ const UpdateRecipe = ({ recipe }) => {
   );
 };
 
-export default UpdateRecipe;
+export default RecipeUpdateForm;

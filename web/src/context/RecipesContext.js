@@ -24,6 +24,7 @@ export const recipesReducer = (state, action) => {
 
     case "STAR_RECIPE":
       return {
+        ...state.recipes,
         recipes: state.recipes.map((recipe) =>
           recipe._id === action.payload._id ? action.payload : recipe
         ),
@@ -31,9 +32,7 @@ export const recipesReducer = (state, action) => {
 
     case "DELETE_RECIPE":
       return {
-        recipes: state.recipes.filter((r) =>
-          r._id !== action.payload._id ? action.payload : r
-        ),
+        recipes: state.recipes.filter((r) => r._id !== action.payload),
       };
 
     default:

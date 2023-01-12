@@ -10,7 +10,7 @@ import {
   CreateAccount,
   UserProfile,
   CreateRecipes,
-  // UpdateRecipe,
+  UpdateRecipes,
   MyRecipes,
 } from "./pages";
 
@@ -23,7 +23,7 @@ import {
 } from "./pages/MealCategories";
 
 // components
-import { Navbar, Footer, UpdateRecipe } from "./components";
+import { Navbar, Footer } from "./components";
 
 function App() {
   const { user } = useAuthContext();
@@ -59,7 +59,7 @@ function App() {
             />
             <Route path="/create-recipes" element={<CreateRecipes />} />
             <Route path="/my-recipes" element={<MyRecipes />} />
-            <Route path="/update-recipe/:id" element={<UpdateRecipe />} />
+            <Route path="/update-recipe/:id" element={<UpdateRecipes />} />
           </Routes>
         </div>
         <Footer />
