@@ -75,13 +75,13 @@
 .create-recipe_form-recipeDescription textarea {
     height: 29rem;
     width: 37.7rem;
+
 }
 
 .create-recipe_form-shortDescription textarea {
     height: 9.6rem;
     width: 56.2rem;
 }
-
 
 .create-recipe_form-preperationTime {
     grid-column: 3/4;
@@ -106,4 +106,14 @@
 
 .create-recipe_form-shortDescription input {
     height: 9.6rem;
+}
+
+.create-recipe_form-btn {
+    height: 4rem;
+    width: 12.4rem;
+    margin: 3rem 0 0 1rem;
+    display: grid;
+    place-content: center;
+    grid-row: 4/5;
+    grid-column: 2/3;
 }

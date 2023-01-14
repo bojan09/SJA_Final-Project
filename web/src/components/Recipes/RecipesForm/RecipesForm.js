@@ -1,5 +1,8 @@
 import "./RecipesForm.css";
 
+// components
+import UploadImage from "../../UploadImage/UploadImage";
+
 // hooks
 import { useRecipesContext } from "../../../hooks/useRecipesContext";
 import { useAuthContext } from "../../../hooks/useAuthContext";
@@ -15,7 +18,6 @@ const RecipesForm = () => {
   const [shortDescription, setShortDescription] = useState("");
   const [preperationTime, setPreperationTime] = useState("");
   const [persons, setPersons] = useState("");
-  const [recipePicture, setRecipePicture] = useState("");
   const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
@@ -62,59 +64,11 @@ const RecipesForm = () => {
     }
   };
 
-  const handleUpload = async (e) => {
-    e.preventDefault();
-
-    const img = {
-      recipePicture,
-    };
-
-    const response = await fetch("/api/v1/storage", {
-      method: "POST",
-      body: JSON.stringify(img),
-      headers: {
-        "Content-Type": "application/json",
-        slika: "slika",
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
-
-    const json = await response.json();
-
-    if (!response.ok) {
-      setError(json.error);
-    }
-    if (response.ok) {
-      setRecipePicture("");
-      setError(null);
-    }
-    dispatch({ type: "CREATE_RECIPE", payload: json });
-  };
-
   return (
     <div className="create-recipe_container">
       <form className="create-recipe_form" onSubmit={handleSubmit}>
         <div className="create-recipe_form-img heading-secondary">
-          <label>Recipe image</label>
-          <img
-            className="create-recipe_form-img"
-            src={recipePicture}
-            alt="recipe pic here"
-          />
-          <input
-            type="file"
-            id="img"
-            value={recipePicture}
-            accept=".png,.jpg,.jpeg"
-            onChange={handleUpload}
-          />
-
-          <label
-            htmlFor="img"
-            className="create-recipe_upload-img_label-btn image-upload_btn"
-          >
-            Upload Image
-          </label>
+          <UploadImage />
         </div>
 
         <div className="create-recipe_form-title heading-secondary">

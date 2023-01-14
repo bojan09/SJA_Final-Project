@@ -14,7 +14,7 @@ app.use(
 );
 app.use(fileUpload());
 
-app.post("/api/v1/storage", storage.upload);
+app.patch("/api/v1/storage", storage.upload);
 
 app.listen(config.get("services").storage.port, (err) => {
   if (err) {
