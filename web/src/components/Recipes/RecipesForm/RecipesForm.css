@@ -107,13 +107,3 @@
 .create-recipe_form-shortDescription input {
     height: 9.6rem;
 }
-
-.create-recipe_form-btn {
-    height: 4rem;
-    width: 12.4rem;
-    margin: 3rem 0 0 1rem;
-    display: grid;
-    place-content: center;
-    grid-row: 4/5;
-    grid-column: 2/3;
-}

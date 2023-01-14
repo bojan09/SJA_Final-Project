@@ -43,6 +43,7 @@ const UpdateRecipes = () => {
           <h1 className="my-recipes_main-heading heading-primary">
             My Recipes
           </h1>
+
           <Link to="/my-recipes">
             <button className="my-recipes_add-recipe">
               <img
@@ -53,6 +54,14 @@ const UpdateRecipes = () => {
             </button>
           </Link>
         </div>
+        {/*
+
+  const [removeRecipe, setRemoveRecipe] = useState([]);
+  setRemoveRecipe((removeRecipe) =>
+    removeRecipe.filter((_, index) => index !== 0)
+  );
+
+
         {recipes &&
           recipes.map(
             (recipe, index) =>
@@ -60,6 +69,14 @@ const UpdateRecipes = () => {
                 <RecipesUpdateForm key={recipe._id} recipe={recipe} />
               )
           )}
+  */}
+
+        {recipes &&
+          recipes
+            .filter((_, index) => index <= 0)
+            .map((recipe) => (
+              <RecipesUpdateForm key={recipe._id} recipe={recipe} />
+            ))}
       </div>
     </div>
   );

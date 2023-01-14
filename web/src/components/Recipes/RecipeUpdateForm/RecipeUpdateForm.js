@@ -1,5 +1,7 @@
+// styles
 import "../RecipesForm/RecipesForm.css";
 import "../../../pages/MyRecipes/MyRecipes.css";
+import "./RecipesUpdateForm.css";
 
 // hooks
 import { useState } from "react";
@@ -98,7 +100,7 @@ const RecipeUpdateForm = ({ recipe }) => {
           <input
             required
             type="text"
-            placeholder="Homemade Pizza"
+            placeholder={recipe.title}
             onChange={(e) => setTitle(e.target.value)}
             value={title}
           />
@@ -108,7 +110,7 @@ const RecipeUpdateForm = ({ recipe }) => {
           <label htmlFor="recipeDescription">Recipe</label>
           <textarea
             required
-            placeholder="There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which dont look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isnt anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures"
+            placeholder={recipe.recipeDescription}
             id="recipeDescription"
             onChange={(e) => setRecipeDescription(e.target.value)}
             value={recipeDescription}
@@ -119,7 +121,7 @@ const RecipeUpdateForm = ({ recipe }) => {
           <label htmlFor="recipeCategory">Category</label>
           <select
             name="recipeCategory"
-            placeholder="Breakfast"
+            placeholder={recipe.category}
             id="recipeCategory"
             onChange={(e) => setCategory(e.target.value)}
             value={category}
@@ -143,7 +145,7 @@ const RecipeUpdateForm = ({ recipe }) => {
           <label htmlFor="preperationTime">Preperation Time</label>
           <input
             type="number"
-            placeholder="45"
+            placeholder={recipe.preperationTime}
             id="preperationTime"
             min="1"
             max="150"
@@ -157,7 +159,7 @@ const RecipeUpdateForm = ({ recipe }) => {
           <label htmlFor="persons">No. Persons</label>
           <input
             type="number"
-            placeholder="4"
+            placeholder={recipe.persons}
             name="persons"
             min="1"
             max="15"
@@ -170,8 +172,7 @@ const RecipeUpdateForm = ({ recipe }) => {
         <div className="create-recipe_form-shortDescription heading-secondary">
           <label htmlFor="shortDescription">Short Description</label>
           <textarea
-            placeholder="There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don’t look even slightly believable. If you are going to use a passage"
-            id="shortDescription"
+            placeholder={recipe.shortDescription}
             onChange={(e) => setShortDescription(e.target.value)}
             value={shortDescription}
             required

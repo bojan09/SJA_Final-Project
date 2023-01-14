@@ -2,6 +2,7 @@ import "./App.css";
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuthContext } from "./hooks/useAuthContext";
+import { useRecipesContext } from "./hooks/useRecipesContext";
 
 // pages
 import {
@@ -27,6 +28,7 @@ import { Navbar, Footer } from "./components";
 
 function App() {
   const { user } = useAuthContext();
+  const { recipes } = useRecipesContext();
 
   return (
     <div className="App">
@@ -59,7 +61,10 @@ function App() {
             />
             <Route path="/create-recipes" element={<CreateRecipes />} />
             <Route path="/my-recipes" element={<MyRecipes />} />
-            <Route path="/update-recipe/:id" element={<UpdateRecipes />} />
+            <Route
+              path="/update-recipe/:id"
+              element={<UpdateRecipes recipe={recipes} />}
+            />
           </Routes>
         </div>
         <Footer />
