@@ -1,5 +1,4 @@
 const strings = require("../../../pkg/strings");
-require("mime-types");
 
 const upload = async (req, res) => {
   let fileTypes = [
@@ -10,18 +9,14 @@ const upload = async (req, res) => {
     "image/gif",
   ];
   let maxFileSize = 1024 * 1024;
-  if (!fileTypes.includes(req.files.file.mimetype)) {
-    return res
-      .status(400)
-      .send("Bad request!, file does not meet format requirements");
+  if (!fileTypes.includes(req.files.slika.mimetype)) {
+    return res.status(400).send("Bad request!");
   }
-  if (maxFileSize < req.files.file.size) {
-    return res
-      .status(400)
-      .send("Bad request!, file does not meet size requirements");
+  if (maxFileSize < req.files.slika.size) {
+    return res.status(400).send("Bad request!");
   }
-  let newFileName = `${strings.random(10)}__${req.files.file.name}`;
-  await req.files.file.mv(`${__dirname}/../../../pkg/uploads/${newFileName}`);
+  let newFileName = `${strings.random(10)}__${req.files.slika.name}`;
+  await req.files.slika.mv(`${__dirname}/../../../uploads/${newFileName}`);
   res.status(201).send({ filename: newFileName });
 };
 

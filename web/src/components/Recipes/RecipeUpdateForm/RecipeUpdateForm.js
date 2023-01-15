@@ -7,12 +7,12 @@ import "./RecipesUpdateForm.css";
 import { useState } from "react";
 import { useRecipesContext } from "../../../hooks/useRecipesContext";
 import { useAuthContext } from "../../../hooks/useAuthContext";
-
-// go back to my recipes img
+import { useUploadRecipeImage } from "../../../hooks/useUploadRecipeImage";
 
 const RecipeUpdateForm = ({ recipe }) => {
   const { dispatch } = useRecipesContext();
   const { user } = useAuthContext();
+  const { handleUpload } = useUploadRecipeImage();
 
   const [category, setCategory] = useState("");
   const [title, setTitle] = useState("");
@@ -22,8 +22,6 @@ const RecipeUpdateForm = ({ recipe }) => {
   const [persons, setPersons] = useState("");
   const [recipePicture, setRecipePicture] = useState("");
   const [error, setError] = useState(null);
-
-  console.log(recipe);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -83,16 +81,30 @@ const RecipeUpdateForm = ({ recipe }) => {
           />
           <input
             type="file"
-            id="img"
-            value={recipePicture}
-            onChange={(e) => setRecipePicture(e.target.value)}
+            id="img_file"
+            name="slika"
+            onChange={(e) => {
+              setRecipePicture(e.target.files[0]);
+            }}
           />
           <label
-            htmlFor="img"
+            htmlFor="img_file"
             className="create-recipe_upload-img_label-btn image-upload_btn"
+            onClick={(e) => handleUpload}
           >
             Upload Image
           </label>
+        </div>
+
+        <div className="create-recipe_form-title heading-secondary">
+          <label htmlFor="recipe_title">Recipe Title</label>
+          <input
+            required
+            type="text"
+            placeholder="Homemade Pizza"
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}
+          />
         </div>
 
         <div className="create-recipe_form-title heading-secondary">

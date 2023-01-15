@@ -59,7 +59,6 @@ const getAllDinnerRecipes = async (req, res) => {
     res.status(200).send(r);
   } catch (err) {
     console.log(err);
-
     return res.status(500).send("Internal Server Error!");
   }
 };

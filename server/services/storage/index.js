@@ -12,9 +12,19 @@ app.use(
     secret: config.get("security").jwt_secret,
   })
 );
+
+app.use((err, req, res, next) => {
+  if (err.name === "UnauthorizedError") {
+    res.status(401).send({
+      error: true,
+      message: "You need to log in in order to perform this action",
+    });
+  }
+});
+
 app.use(fileUpload());
 
-app.patch("/api/v1/storage", storage.upload);
+app.post("/api/v1/storage", storage.upload);
 
 app.listen(config.get("services").storage.port, (err) => {
   if (err) {

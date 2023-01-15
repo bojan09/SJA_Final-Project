@@ -1,16 +1,18 @@
 import "./RecipesForm.css";
 
 // components
-import UploadImage from "../../UploadImage/UploadImage";
 
 // hooks
 import { useRecipesContext } from "../../../hooks/useRecipesContext";
 import { useAuthContext } from "../../../hooks/useAuthContext";
+import { useUploadRecipeImage } from "../../../hooks/useUploadRecipeImage";
+
 import { useState } from "react";
 
 const RecipesForm = () => {
   const { dispatch } = useRecipesContext();
   const { user } = useAuthContext();
+  const { handleUpload } = useUploadRecipeImage();
 
   const [category, setCategory] = useState("");
   const [title, setTitle] = useState("");
@@ -18,6 +20,7 @@ const RecipesForm = () => {
   const [shortDescription, setShortDescription] = useState("");
   const [preperationTime, setPreperationTime] = useState("");
   const [persons, setPersons] = useState("");
+  const [recipePicture, setRecipePicture] = useState("");
   const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
@@ -35,6 +38,7 @@ const RecipesForm = () => {
       preperationTime,
       shortDescription,
       persons,
+      recipePicture,
     };
 
     const response = await fetch("/api/v1/recipes/", {
@@ -59,6 +63,7 @@ const RecipesForm = () => {
       setShortDescription("");
       setPreperationTime("");
       setPersons("");
+      setRecipePicture("");
       setError(null);
       dispatch({ type: "CREATE_RECIPE", payload: json });
     }
@@ -68,7 +73,27 @@ const RecipesForm = () => {
     <div className="create-recipe_container">
       <form className="create-recipe_form" onSubmit={handleSubmit}>
         <div className="create-recipe_form-img heading-secondary">
-          <UploadImage />
+          <label>Recipe image</label>
+          <img
+            className="create-recipe_form-img"
+            src={recipePicture}
+            alt="recipe pic here"
+          />
+          <input
+            type="file"
+            id="img_file"
+            name="slika"
+            onChange={(e) => {
+              setRecipePicture(e.target.files[0]);
+            }}
+          />
+          <label
+            htmlFor="img_file"
+            className="create-recipe_upload-img_label-btn image-upload_btn"
+            onClick={(e) => handleUpload}
+          >
+            Upload Image
+          </label>
         </div>
 
         <div className="create-recipe_form-title heading-secondary">

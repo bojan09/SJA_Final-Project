@@ -24,7 +24,6 @@ const RecipePosts = ({ recipe }) => {
   const { dispatch } = useRecipesContext();
   const { user } = useAuthContext();
 
-  console.log(recipe._id);
   const addStarToRecipe = async () => {
     try {
       const response = await fetch("/api/v1/recipes/" + recipe._id, {
