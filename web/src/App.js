@@ -53,14 +53,10 @@ function App() {
               path="/user-profile"
               element={user ? <UserProfile /> : <Navigate to="/login" />}
             />
-            <Route
-              path="/create-account"
-              element={
-                !user ? <CreateAccount /> : <Navigate to="/user-profile" />
-              }
-            />
+            <Route path="/create-account" element={<CreateAccount />} />
             <Route path="/create-recipes" element={<CreateRecipes />} />
             <Route path="/my-recipes" element={<MyRecipes />} />
+
             <Route
               path="/update-recipe/:id"
               element={<UpdateRecipes recipe={recipes} />}

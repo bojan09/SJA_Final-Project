@@ -36,7 +36,10 @@ const UserRecipes = ({ recipe }) => {
 
   return (
     <div className="user-recipe_preview-container">
-      <Link to={"/update-recipe/" + recipe._id}>
+      <Link
+        className="user-recipe_update-recipe_link"
+        to={"/update-recipe/" + recipe._id}
+      >
         <h3 className="user-recipe_title">{recipe.title}</h3>
       </Link>
 

@@ -12,8 +12,8 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email || password !== e.target.value) {
-      setValidateError(true);
+    if (email || password === e.target.value) {
+      setValidateError(false);
     }
 
     await login(email, password);
@@ -57,7 +57,6 @@ const Login = () => {
               value={email}
               required
             />
-
             <label htmlFor="password">Password</label>
             <input
               type="password"
@@ -66,7 +65,6 @@ const Login = () => {
               value={password}
               required
             />
-
             <button disabled={isLoading} className="login-btn">
               LOG IN
             </button>

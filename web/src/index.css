@@ -118,7 +118,6 @@ input[type="number"]::placeholder {
 }
 
 input[type="file"] {
-  background-color: red;
   position: absolute;
   top: 0;
 }
@@ -143,6 +142,7 @@ textarea::placeholder {
   font-weight: 400;
   font-family: var(--ff-roboto);
   line-height: 1.5;
+  /* color: var(--clr-midgrey); */
 }
 
 

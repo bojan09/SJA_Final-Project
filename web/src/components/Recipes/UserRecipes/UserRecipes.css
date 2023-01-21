@@ -12,8 +12,7 @@
     color: var(--clr-midgrey);
 }
 
-a,
-li {
+.user-recipe_update-recipe_link {
     color: inherit;
     grid-column: 1/2;
     grid-row: 1/2;

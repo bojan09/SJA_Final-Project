@@ -5,14 +5,12 @@ import "./RecipesForm.css";
 // hooks
 import { useRecipesContext } from "../../../hooks/useRecipesContext";
 import { useAuthContext } from "../../../hooks/useAuthContext";
-import { useUploadRecipeImage } from "../../../hooks/useUploadRecipeImage";
 
 import { useState } from "react";
 
 const RecipesForm = () => {
   const { dispatch } = useRecipesContext();
   const { user } = useAuthContext();
-  const { handleUpload } = useUploadRecipeImage();
 
   const [category, setCategory] = useState("");
   const [title, setTitle] = useState("");
@@ -20,8 +18,20 @@ const RecipesForm = () => {
   const [shortDescription, setShortDescription] = useState("");
   const [preperationTime, setPreperationTime] = useState("");
   const [persons, setPersons] = useState("");
-  const [recipePicture, setRecipePicture] = useState("");
   const [error, setError] = useState(null);
+
+  const [recipePicture, setRecipePicture] = useState("");
+  const [fileName, setFileName] = useState("Recipe picture here");
+  const [image, setImage] = useState({ preview: "", data: "" });
+
+  const onChange = (e) => {
+    setFileName(e.target.files[0].name);
+    const img = {
+      preview: URL.createObjectURL(e.target.files[0]),
+      data: e.target.files[0],
+    };
+    setImage(img);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,6 +64,7 @@ const RecipesForm = () => {
 
     if (!response.ok) {
       setError(json.error);
+      console.log(json.error);
     }
 
     if (response.ok) {
@@ -67,6 +78,19 @@ const RecipesForm = () => {
       setError(null);
       dispatch({ type: "CREATE_RECIPE", payload: json });
     }
+
+    let formData = new FormData();
+    formData.append("recipeImage", image.data);
+
+    const uploadResponse = await fetch("/api/v1/storage", {
+      method: "POST",
+      body: formData,
+      Authorization: `Bearer ${user.token}`,
+    });
+
+    if (uploadResponse.ok) {
+      dispatch({ type: "CREATE_RECIPE", payload: json });
+    }
   };
 
   return (
@@ -76,21 +100,20 @@ const RecipesForm = () => {
           <label>Recipe image</label>
           <img
             className="create-recipe_form-img"
-            src={recipePicture}
-            alt="recipe pic here"
+            src={image.preview}
+            width="100"
+            height="100"
+            alt={fileName}
           />
           <input
             type="file"
             id="img_file"
-            name="slika"
-            onChange={(e) => {
-              setRecipePicture(e.target.files[0]);
-            }}
+            name="recipeImage"
+            onChange={onChange}
           />
           <label
             htmlFor="img_file"
             className="create-recipe_upload-img_label-btn image-upload_btn"
-            onClick={(e) => handleUpload}
           >
             Upload Image
           </label>
@@ -98,6 +121,7 @@ const RecipesForm = () => {
 
         <div className="create-recipe_form-title heading-secondary">
           <label htmlFor="recipe_title">Recipe Title</label>
+
           <input
             required
             type="text"
