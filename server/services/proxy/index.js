@@ -5,6 +5,8 @@ const proxy = require("express-http-proxy");
 
 const app = express();
 
+app.use("/uploads", express.static(`${__dirname}/../../../pkg/uploads/`));
+
 app.use(
   "/api/v1/storage",
   proxy("http://127.0.0.1:10001", {

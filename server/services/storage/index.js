@@ -1,5 +1,4 @@
 const config = require("../../pkg/config");
-const bodyParser = require("body-parser");
 const express = require("express");
 const fileUpload = require("express-fileupload");
 const { expressjwt: jwt } = require("express-jwt");

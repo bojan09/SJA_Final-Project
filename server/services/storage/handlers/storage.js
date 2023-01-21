@@ -14,6 +14,7 @@ const upload = async (req, res) => {
   let file = req.files.recipeImage;
 
   console.log(req.files);
+  console.log(req.files.recipeImage);
 
   if (!fileTypes.includes(file.mimetype)) {
     return res
@@ -26,8 +27,11 @@ const upload = async (req, res) => {
       .send("Bad request!, file does not meet size requirements");
   }
   let newFileName = `${strings.random(10)}__${file.name}`;
+
   await file.mv(`${__dirname}/../../../pkg/uploads/${newFileName}`);
-  res.status(201).send({ filename: newFileName });
+  let filePath = `${__dirname}/../../../uploads/${req.params.file}`;
+
+  res.status(201).send({ filename: newFileName, filePath: filePath });
 };
 
 const download = async (req, res) => {

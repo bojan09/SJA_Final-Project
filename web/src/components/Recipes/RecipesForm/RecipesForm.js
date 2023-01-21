@@ -20,9 +20,9 @@ const RecipesForm = () => {
   const [persons, setPersons] = useState("");
   const [error, setError] = useState(null);
 
-  const [recipePicture, setRecipePicture] = useState("");
   const [fileName, setFileName] = useState("Recipe picture here");
   const [image, setImage] = useState({ preview: "", data: "" });
+  const [recipePicture, setRecipePicture] = useState(image.data);
 
   const onChange = (e) => {
     setFileName(e.target.files[0].name);
@@ -74,7 +74,7 @@ const RecipesForm = () => {
       setShortDescription("");
       setPreperationTime("");
       setPersons("");
-      setRecipePicture("");
+      setRecipePicture(`${fileName}`);
       setError(null);
       dispatch({ type: "CREATE_RECIPE", payload: json });
     }
