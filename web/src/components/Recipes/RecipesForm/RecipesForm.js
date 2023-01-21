@@ -85,11 +85,13 @@ const RecipesForm = () => {
     const uploadResponse = await fetch("/api/v1/storage", {
       method: "POST",
       body: formData,
-      Authorization: `Bearer ${user.token}`,
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
     });
 
     if (uploadResponse.ok) {
-      dispatch({ type: "CREATE_RECIPE", payload: json });
+      dispatch({ type: "CREATE_RECIPE", payload: formData });
     }
   };
 
