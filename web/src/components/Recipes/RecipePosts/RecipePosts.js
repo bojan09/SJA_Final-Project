@@ -15,7 +15,7 @@ import starsIcon from "../../../Archive/icon_star.svg";
 import arrows_right from "../../../Archive/icon_arrows_white.svg";
 
 // meal test images
-import pizza from "../../../Archive/pizza.webp";
+import defaultImg from "../../../Archive/mac&cheese.jpg";
 
 const RecipePosts = ({ recipe }) => {
   const [openModal, setOpenModal] = useState(false);
@@ -49,7 +49,12 @@ const RecipePosts = ({ recipe }) => {
       <div className="recipe-post_container">
         <div className="recipe-post_img">
           <span className="recipe-post_course">{recipe.category}</span>
-          <img src={pizza} alt="pizza" onClick={() => setOpenModal(true)} />
+          <img
+            // src={recipe.recipePicture}
+            src={defaultImg}
+            alt="pizza"
+            onClick={() => setOpenModal(true)}
+          />
           <Modal
             key={recipe._id}
             recipe={recipe}

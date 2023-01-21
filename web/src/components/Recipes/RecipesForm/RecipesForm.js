@@ -20,12 +20,12 @@ const RecipesForm = () => {
   const [persons, setPersons] = useState("");
   const [error, setError] = useState(null);
 
-  const [fileName, setFileName] = useState("Recipe picture here");
+  const [fileName, setRecipePictureName] = useState("Recipe picture here");
   const [image, setImage] = useState({ preview: "", data: "" });
-  const [recipePicture, setRecipePicture] = useState(image.data);
+  const [recipePicture, setRecipePicture] = useState("");
 
   const onChange = (e) => {
-    setFileName(e.target.files[0].name);
+    setRecipePictureName(URL.createObjectURL(e.target.files[0]));
     const img = {
       preview: URL.createObjectURL(e.target.files[0]),
       data: e.target.files[0],
@@ -40,6 +40,27 @@ const RecipesForm = () => {
       setError("You must be logged in");
       return;
     }
+
+    // Upload recipe image
+
+    let formData = new FormData();
+    let filename = Date.now() + image.name;
+    formData.append("recipeImage", image.data);
+    formData.append("name", filename);
+
+    const uploadResponse = await fetch("/api/v1/storage", {
+      method: "POST",
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+
+    if (uploadResponse.ok) {
+      dispatch({ type: "CREATE_RECIPE", payload: formData });
+    }
+
+    // Uploading the recipe
 
     const recipe = {
       category,
@@ -74,24 +95,9 @@ const RecipesForm = () => {
       setShortDescription("");
       setPreperationTime("");
       setPersons("");
-      setRecipePicture(`${fileName}`);
+      setRecipePicture(filename);
       setError(null);
       dispatch({ type: "CREATE_RECIPE", payload: json });
-    }
-
-    let formData = new FormData();
-    formData.append("recipeImage", image.data);
-
-    const uploadResponse = await fetch("/api/v1/storage", {
-      method: "POST",
-      body: formData,
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
-
-    if (uploadResponse.ok) {
-      dispatch({ type: "CREATE_RECIPE", payload: formData });
     }
   };
 
@@ -113,6 +119,7 @@ const RecipesForm = () => {
             name="recipeImage"
             onChange={onChange}
           />
+
           <label
             htmlFor="img_file"
             className="create-recipe_upload-img_label-btn image-upload_btn"
