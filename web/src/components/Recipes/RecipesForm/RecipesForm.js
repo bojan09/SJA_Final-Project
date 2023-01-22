@@ -20,12 +20,12 @@ const RecipesForm = () => {
   const [persons, setPersons] = useState("");
   const [error, setError] = useState(null);
 
-  const [fileName, setRecipePictureName] = useState("Recipe picture here");
+  const [fileName, setFileName] = useState("Recipe picture here");
   const [image, setImage] = useState({ preview: "", data: "" });
   const [recipePicture, setRecipePicture] = useState("");
 
   const onChange = (e) => {
-    setRecipePictureName(URL.createObjectURL(e.target.files[0]));
+    setFileName(URL.createObjectURL(e.target.files[0]));
     const img = {
       preview: URL.createObjectURL(e.target.files[0]),
       data: e.target.files[0],
@@ -42,22 +42,29 @@ const RecipesForm = () => {
     }
 
     // Upload recipe image
+    try {
+      let formData = new FormData();
+      formData.append("recipeImage", image.data);
 
-    let formData = new FormData();
-    let filename = Date.now() + image.name;
-    formData.append("recipeImage", image.data);
-    formData.append("name", filename);
+      const uploadResponse = await fetch("/api/v1/storage", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
 
-    const uploadResponse = await fetch("/api/v1/storage", {
-      method: "POST",
-      body: formData,
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+      const recipePicturePath = await uploadResponse.json();
+      console.log("pic name", recipePicturePath.filePath);
+      setRecipePicture(recipePicturePath.filePath);
 
-    if (uploadResponse.ok) {
-      dispatch({ type: "CREATE_RECIPE", payload: formData });
+      if (uploadResponse.ok) {
+        dispatch({ type: "CREATE_RECIPE", payload: formData });
+      }
+
+      return recipePicturePath;
+    } catch (err) {
+      console.log(err);
     }
 
     // Uploading the recipe
@@ -95,7 +102,7 @@ const RecipesForm = () => {
       setShortDescription("");
       setPreperationTime("");
       setPersons("");
-      setRecipePicture(filename);
+      setRecipePicture(recipePicture);
       setError(null);
       dispatch({ type: "CREATE_RECIPE", payload: json });
     }

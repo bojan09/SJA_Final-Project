@@ -29,7 +29,7 @@ const upload = async (req, res) => {
   let newFileName = `${strings.random(10)}__${file.name}`;
 
   await file.mv(`${__dirname}/../../../pkg/uploads/${newFileName}`);
-  let filePath = `${__dirname}/../../../uploads/${req.params.file}`;
+  let filePath = `${__dirname}/../../../uploads/${newFileName}`;
 
   res.status(201).send({ filename: newFileName, filePath: filePath });
 };
