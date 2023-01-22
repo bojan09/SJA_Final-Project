@@ -24,15 +24,6 @@ const RecipesForm = () => {
   const [image, setImage] = useState({ preview: "", data: "" });
   const [recipePicture, setRecipePicture] = useState("");
 
-  const onChange = (e) => {
-    setFileName(URL.createObjectURL(e.target.files[0]));
-    const img = {
-      preview: URL.createObjectURL(e.target.files[0]),
-      data: e.target.files[0],
-    };
-    setImage(img);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -42,29 +33,27 @@ const RecipesForm = () => {
     }
 
     // Upload recipe image
-    try {
-      let formData = new FormData();
-      formData.append("recipeImage", image.data);
+    let formData = new FormData();
+    formData.append("recipeImage", image.data);
 
-      const uploadResponse = await fetch("/api/v1/storage", {
-        method: "POST",
-        body: formData,
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
+    const uploadResponse = await fetch("/api/v1/storage", {
+      method: "POST",
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
 
-      const recipePicturePath = await uploadResponse.json();
-      console.log("pic name", recipePicturePath.filePath);
-      setRecipePicture(recipePicturePath.filePath);
+    const recipePicturePath = await uploadResponse.json();
+    console.log("The RecipePicture__path__", recipePicturePath.pictureFilePath);
+    setRecipePicture(recipePicturePath.pictureFilePath);
 
-      if (uploadResponse.ok) {
-        dispatch({ type: "CREATE_RECIPE", payload: formData });
-      }
+    if (uploadResponse.ok) {
+      setRecipePicture(recipePicturePath.pictureFilePath);
 
-      return recipePicturePath;
-    } catch (err) {
-      console.log(err);
+      console.log("recipePicture path__1:", recipePicture);
+
+      dispatch({ type: "CREATE_RECIPE", payload: formData });
     }
 
     // Uploading the recipe
@@ -104,8 +93,21 @@ const RecipesForm = () => {
       setPersons("");
       setRecipePicture(recipePicture);
       setError(null);
+      console.log("recipePicture path__2:", recipePicture);
       dispatch({ type: "CREATE_RECIPE", payload: json });
     }
+  };
+
+  const onChange = (e) => {
+    // setRecipePicture(recipePicture);
+    // console.log("recipePicture path__3:", recipePicture);
+    setFileName(URL.createObjectURL(e.target.files[0]));
+
+    const img = {
+      preview: URL.createObjectURL(e.target.files[0]),
+      data: e.target.files[0],
+    };
+    setImage(img);
   };
 
   return (

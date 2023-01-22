@@ -31,7 +31,7 @@ const upload = async (req, res) => {
   await file.mv(`${__dirname}/../../../pkg/uploads/${newFileName}`);
   let filePath = `${__dirname}/../../../uploads/${newFileName}`;
 
-  res.status(201).send({ filename: newFileName, filePath: filePath });
+  res.status(201).send({ filename: newFileName, pictureFilePath: filePath });
 };
 
 const download = async (req, res) => {
