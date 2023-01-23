@@ -6,12 +6,15 @@ const storage = require("./handlers/storage");
 
 const app = express();
 
+app.use(express.static("../../pkg/"));
+app.use("/uploads", express.static("uploads"));
+
 app.use(
   jwt({
     algorithms: ["HS256"],
     secret: config.get("security").jwt_secret,
   }).unless({
-    path: ["/api/v1/storage", "/api/v1/storage/:file"],
+    path: ["/api/v1/storage/:file"],
   })
 );
 

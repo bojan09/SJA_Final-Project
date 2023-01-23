@@ -54,22 +54,6 @@ const UpdateRecipes = () => {
             </button>
           </Link>
         </div>
-        {/*
-
-  const [removeRecipe, setRemoveRecipe] = useState([]);
-  setRemoveRecipe((removeRecipe) =>
-    removeRecipe.filter((_, index) => index !== 0)
-  );
-
-
-        {recipes &&
-          recipes.map(
-            (recipe, index) =>
-              index === 0 && (
-                <RecipesUpdateForm key={recipe._id} recipe={recipe} />
-              )
-          )}
-  */}
 
         {recipes &&
           recipes

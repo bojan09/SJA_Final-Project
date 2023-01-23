@@ -42,7 +42,6 @@ const UserRecipes = ({ recipe }) => {
       >
         <h3 className="user-recipe_title">{recipe.title}</h3>
       </Link>
-
       <h3 className="user-recipe_category">{recipe.category}</h3>
       <h3 className="user-recipe_createdOn">
         {dateFormat(recipe.createdOn, "d.mm.yyyy")}

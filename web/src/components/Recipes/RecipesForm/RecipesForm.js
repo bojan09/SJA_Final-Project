@@ -21,7 +21,7 @@ const RecipesForm = () => {
   const [error, setError] = useState(null);
 
   const [fileName, setFileName] = useState("Recipe picture here");
-  const [image, setImage] = useState({ preview: "", data: "" });
+  const [image, setImage] = useState({ preview: "", data: "", filePath: "" });
   const [recipePicture, setRecipePicture] = useState(null);
 
   const handleSubmit = async (e) => {
@@ -106,6 +106,7 @@ const RecipesForm = () => {
 
     const img = {
       preview: URL.createObjectURL(e.target.files[0]),
+      filePath: URL.createObjectURL(e.target.files[0]),
       data: e.target.files[0],
     };
     setImage(img);
