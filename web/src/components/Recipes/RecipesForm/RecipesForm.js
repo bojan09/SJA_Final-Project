@@ -22,7 +22,7 @@ const RecipesForm = () => {
 
   const [fileName, setFileName] = useState("Recipe picture here");
   const [image, setImage] = useState({ preview: "", data: "" });
-  const [recipePicture, setRecipePicture] = useState("");
+  const [recipePicture, setRecipePicture] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,12 +46,13 @@ const RecipesForm = () => {
 
     const recipePicturePath = await uploadResponse.json();
     console.log("The RecipePicture__path__", recipePicturePath.pictureFilePath);
-    setRecipePicture(recipePicturePath.pictureFilePath);
+    let picAbsoluteFilePath = recipePicturePath.pictureFilePath;
 
     if (uploadResponse.ok) {
-      setRecipePicture(recipePicturePath.pictureFilePath);
+      setRecipePicture(picAbsoluteFilePath);
 
       console.log("recipePicture path__1:", recipePicture);
+      console.log("recipePicture path__1 v2:", picAbsoluteFilePath);
 
       dispatch({ type: "CREATE_RECIPE", payload: formData });
     }
@@ -91,7 +92,7 @@ const RecipesForm = () => {
       setShortDescription("");
       setPreperationTime("");
       setPersons("");
-      setRecipePicture(recipePicture);
+      setRecipePicture(picAbsoluteFilePath);
       setError(null);
       console.log("recipePicture path__2:", recipePicture);
       dispatch({ type: "CREATE_RECIPE", payload: json });
@@ -99,8 +100,8 @@ const RecipesForm = () => {
   };
 
   const onChange = (e) => {
-    // setRecipePicture(recipePicture);
-    // console.log("recipePicture path__3:", recipePicture);
+    setRecipePicture(recipePicture);
+    console.log("recipePicture path__3:", recipePicture);
     setFileName(URL.createObjectURL(e.target.files[0]));
 
     const img = {
