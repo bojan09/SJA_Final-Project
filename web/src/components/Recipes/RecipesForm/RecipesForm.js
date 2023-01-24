@@ -22,7 +22,7 @@ const RecipesForm = () => {
 
   const [fileName, setFileName] = useState("Recipe picture here");
   const [image, setImage] = useState({ preview: "", data: "", filePath: "" });
-  const [recipePicture, setRecipePicture] = useState(null);
+  const [recipePicture, setRecipePicture] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -128,6 +128,7 @@ const RecipesForm = () => {
             type="file"
             id="img_file"
             name="recipeImage"
+            onClick={() => setRecipePicture(recipePicture)}
             onChange={onChange}
           />
 

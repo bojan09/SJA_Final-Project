@@ -1,7 +1,7 @@
 import "./RecipePosts.css";
 
 // hooks
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRecipesContext } from "../../../hooks/useRecipesContext";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 
@@ -15,15 +15,18 @@ import starsIcon from "../../../Archive/icon_star.svg";
 import arrows_right from "../../../Archive/icon_arrows_white.svg";
 
 // meal test images
-import defaultImg from "../../../Archive/mac&cheese.jpg";
+// import defaultImg from "../../../Archive/mac&cheese.jpg";
 
 const RecipePosts = ({ recipe }) => {
   const [openModal, setOpenModal] = useState(false);
   const [starCount, setStarCount] = useState(recipe.starsCount);
 
+  const [recipePicture, setRecipePicture] = useState("");
+
   const { dispatch } = useRecipesContext();
   const { user } = useAuthContext();
 
+  // STAR RECIPES
   const addStarToRecipe = async () => {
     try {
       const response = await fetch("/api/v1/recipes/" + recipe._id, {
@@ -44,15 +47,46 @@ const RecipePosts = ({ recipe }) => {
     }
   };
 
+  //FETCH IMAGE FOR RECIPES
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      const response = await fetch("/api/v1/storage/:file", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+
+      const imgDownloadResponse = await response.json();
+      console.log(
+        "The RecipePicture__path__",
+        imgDownloadResponse.pictureFilePath
+      );
+      let picAbsoluteFilePath = imgDownloadResponse.pictureFilePath;
+
+      if (response.ok) {
+        setRecipePicture(picAbsoluteFilePath);
+        console.log("recipePicture path__1:", recipePicture);
+        console.log("recipePicture path__1 v2:", picAbsoluteFilePath);
+
+        dispatch({ type: "FETCH_RECIPES", payload: picAbsoluteFilePath });
+      }
+    };
+    if (user) {
+      fetchRecipes();
+    }
+  }, [dispatch, user, recipePicture]);
+
   return (
     <div className="recipes-posts">
       <div className="recipe-post_container">
         <div className="recipe-post_img">
           <span className="recipe-post_course">{recipe.category}</span>
           <img
-            // src={recipe.recipePicture}
-            src={defaultImg}
-            alt="pizza"
+            src={recipePicture}
+            // src={defaultImg}
+            alt={"Recipe Name"}
             onClick={() => setOpenModal(true)}
           />
           <Modal
