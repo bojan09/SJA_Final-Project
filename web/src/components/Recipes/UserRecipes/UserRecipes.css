@@ -23,6 +23,7 @@
 .user-recipe_title {
     width: 17rem;
     font-weight: 900;
+    cursor: pointer;
 }
 
 .user-recipe_title:hover {

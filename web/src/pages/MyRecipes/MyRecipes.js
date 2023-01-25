@@ -57,9 +57,11 @@ const MyRecipes = () => {
 
       <div className="my-recipes_preview">
         {recipes &&
-          recipes.map((recipe) => (
-            <UserRecipes key={recipe._id} recipe={recipe} />
-          ))}
+          recipes
+            .sort((r1, r2) => {
+              return new Date(r2.createdOn) - new Date(r1.createdOn);
+            })
+            .map((recipe) => <UserRecipes key={recipe._id} recipe={recipe} />)}
       </div>
     </div>
   );

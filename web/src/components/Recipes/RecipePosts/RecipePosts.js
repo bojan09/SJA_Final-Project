@@ -15,13 +15,13 @@ import starsIcon from "../../../Archive/icon_star.svg";
 import arrows_right from "../../../Archive/icon_arrows_white.svg";
 
 // meal test images
-// import defaultImg from "../../../Archive/mac&cheese.jpg";
+import defaultImg from "../../../Archive/mac&cheese.jpg";
 
 const RecipePosts = ({ recipe }) => {
   const [openModal, setOpenModal] = useState(false);
   const [starCount, setStarCount] = useState(recipe.starsCount);
 
-  const [recipePicture, setRecipePicture] = useState("");
+  const [recipeImage, setRecipeImage] = useState({});
 
   const { dispatch } = useRecipesContext();
   const { user } = useAuthContext();
@@ -50,7 +50,7 @@ const RecipePosts = ({ recipe }) => {
   //FETCH IMAGE FOR RECIPES
   useEffect(() => {
     const fetchRecipes = async () => {
-      const response = await fetch("/api/v1/storage/:file", {
+      const response = await fetch("/api/v1/recipes/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -59,24 +59,25 @@ const RecipePosts = ({ recipe }) => {
       });
 
       const imgDownloadResponse = await response.json();
+      setRecipeImage(imgDownloadResponse[0]);
       console.log(
-        "The RecipePicture__path__",
+        "The Recipe Image__path__",
         imgDownloadResponse.pictureFilePath
       );
-      let picAbsoluteFilePath = imgDownloadResponse.pictureFilePath;
+      // let picAbsoluteFilePath = imgDownloadResponse.pictureFilePath;
 
       if (response.ok) {
-        setRecipePicture(picAbsoluteFilePath);
-        console.log("recipePicture path__1:", recipePicture);
-        console.log("recipePicture path__1 v2:", picAbsoluteFilePath);
+        // setRecipeImage(picAbsoluteFilePath);
+        // console.log("recipeImage path__1:", recipeImage);
+        // console.log("recipeImage path__1 v2:", picAbsoluteFilePath);
 
-        dispatch({ type: "FETCH_RECIPES", payload: picAbsoluteFilePath });
+        dispatch({ type: "FETCH_RECIPES", payload: imgDownloadResponse });
       }
     };
     if (user) {
       fetchRecipes();
     }
-  }, [dispatch, user, recipePicture]);
+  }, [dispatch, user, recipeImage, recipe]);
 
   return (
     <div className="recipes-posts">
@@ -84,7 +85,7 @@ const RecipePosts = ({ recipe }) => {
         <div className="recipe-post_img">
           <span className="recipe-post_course">{recipe.category}</span>
           <img
-            src={recipePicture}
+            src={recipe.recipePicture ? recipeImage.recipePicture : defaultImg}
             // src={defaultImg}
             alt={"Recipe Name"}
             onClick={() => setOpenModal(true)}

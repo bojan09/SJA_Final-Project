@@ -55,12 +55,11 @@ const UpdateRecipes = () => {
           </Link>
         </div>
 
-        {recipes &&
-          recipes
-            .filter((_, index) => index <= 0)
-            .map((recipe) => (
-              <RecipesUpdateForm key={recipe._id} recipe={recipe} />
-            ))}
+        {recipes
+          .map((recipe, index) => (
+            <RecipesUpdateForm key={index} recipe={recipe} />
+          ))
+          .find((r) => r.i === r._id)}
       </div>
     </div>
   );
