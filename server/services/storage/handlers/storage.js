@@ -37,7 +37,7 @@ const upload = async (req, res) => {
 const download = async (req, res) => {
   let filePath = `${__dirname}/../../../uploads/${req.params.file}`;
 
-  res.download(filePath, req.params.file.split("__")[1]);
+  res.download(filePath, req.params.file.split("__")[1], Headers);
 };
 
 module.exports = {

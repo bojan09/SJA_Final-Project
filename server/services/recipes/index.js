@@ -26,7 +26,7 @@ app.use(
 
 app.get("/api/v1/recipes/", Recipe.getAllRecipes);
 
-app.get("/api/v1/recipes/me/", Recipe.getMine);
+app.get("/api/v1/recipes/me", Recipe.getMine);
 
 app.get("/api/v1/recipes/breakfast", Recipe.getAllBreakfastRecipes);
 

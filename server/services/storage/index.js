@@ -13,8 +13,6 @@ app.use(
   jwt({
     algorithms: ["HS256"],
     secret: config.get("security").jwt_secret,
-  }).unless({
-    path: ["/api/v1/storage/:file"],
   })
 );
 

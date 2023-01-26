@@ -1,6 +1,6 @@
 import "./UserRecipes.css";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // date formating package from npm
 import dateFormat from "dateformat";
@@ -27,17 +27,25 @@ const UserRecipes = ({ recipe }) => {
         Authorization: `Bearer ${user.token}`,
       },
     });
-    // const json = await response.json();
 
     if (response.ok) {
       dispatch({ type: "DELETE_RECIPE", payload: recipe._id });
     }
   };
 
-  const navigate = useNavigate();
+  const updateRecipe = async () => {
+    const response = await fetch("/api/v1/recipes/" + recipe._id, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
 
-  const updateRecipe = (id) => {
-    navigate(`/update-recipe/${id}`);
+    console.log(recipe._id);
+
+    if (response.ok) {
+      dispatch({ type: "FETCH_RECIPES", payload: recipe._id });
+    }
   };
 
   return (
@@ -46,10 +54,7 @@ const UserRecipes = ({ recipe }) => {
         className="user-recipe_update-recipe_link"
         to={"/update-recipe/" + recipe._id}
       >
-        <h3
-          className="user-recipe_title"
-          onClick={() => updateRecipe(recipe._id)}
-        >
+        <h3 className="user-recipe_title" onClick={() => updateRecipe()}>
           {recipe.title}
         </h3>
       </Link>

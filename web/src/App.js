@@ -56,10 +56,9 @@ function App() {
             <Route path="/create-account" element={<CreateAccount />} />
             <Route path="/create-recipes" element={<CreateRecipes />} />
             <Route path="/my-recipes" element={<MyRecipes />} />
-
             <Route
               path="/update-recipe/:id"
-              element={<UpdateRecipes recipe={recipes} />}
+              element={<UpdateRecipes recipe={{ ...recipes }} />}
             />
           </Routes>
         </div>

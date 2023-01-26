@@ -13,13 +13,13 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 // components
 import RecipesUpdateForm from "../../components/Recipes/RecipeUpdateForm/RecipeUpdateForm";
 
-const UpdateRecipes = () => {
+const UpdateRecipes = ({ recipe }) => {
   const { recipes, dispatch } = useRecipesContext();
   const { user } = useAuthContext();
 
   useEffect(() => {
     const fetchRecipes = async () => {
-      const response = await fetch("/api/v1/recipes/me/", {
+      const response = await fetch("/api/v1/recipes/" + recipe._id, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -34,7 +34,7 @@ const UpdateRecipes = () => {
     if (user) {
       fetchRecipes();
     }
-  }, [dispatch, user]);
+  }, [dispatch, user, recipe]);
 
   return (
     <div>
@@ -55,11 +55,12 @@ const UpdateRecipes = () => {
           </Link>
         </div>
 
-        {recipes
-          .map((recipe, index) => (
-            <RecipesUpdateForm key={index} recipe={recipe} />
-          ))
-          .find((r) => r.i === r._id)}
+        {recipes &&
+          recipes
+            .map((recipe) => (
+              <RecipesUpdateForm key={recipe._id} recipe={recipe} />
+            ))
+            .find((recipe) => recipe._id === recipes._id)}
       </div>
     </div>
   );
